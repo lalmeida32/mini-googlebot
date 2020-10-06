@@ -42,13 +42,13 @@ ITEM *separa_dados(char *dados){
     int aux, i = 1;
     //sabemos quais sao as informacoes de um site e a ordem: Chave, Nome, Relevancia, link, Palavras-chave
     //obtendo a chave
-    token = strtok(dados, ',');
+    token = strtok(dados, ",");
     aux = atoi(token);
     item = item_criar(aux, site_criar());
 
     //obtendo os outros dados
     while( token != NULL ){
-        token = strtok(NULL, ',');
+        token = strtok(NULL, ",");
         if(i == 1)
             site_set_nome(item_get_conteudo(item, NULL), token);
         else if(i == 2){
