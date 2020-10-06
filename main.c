@@ -25,14 +25,7 @@ int main(void) {
     //     chamar_opcao(lista_de_sites, opcao);
     // } while(opcao != 5);
 
-    chamar_opcao(lista_de_sites, 1);
-    chamar_opcao(lista_de_sites, 1);
-    chamar_opcao(lista_de_sites, 1);
-    chamar_opcao(lista_de_sites, 1);
-
     lista_imprimir(lista_de_sites); printf("\n\n");
-    site_imprimir(item_get_conteudo(lista_busca(lista_de_sites, 4)));
-    site_imprimir(item_get_conteudo(lista_busca(lista_de_sites, 8)));
 
     lista_apagar(&lista_de_sites, (void (*)(void **)) & site_apagar);
 

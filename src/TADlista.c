@@ -68,7 +68,6 @@ int lista_tamanho(LISTA *lista){
 }
 
 void lista_imprimir(LISTA *lista){
-     int i;
      NO *p;
      if (lista != NULL){
         p = lista->inicio;
@@ -145,7 +144,7 @@ ITEM *lista_busca(LISTA *lista, int chave){
     return NULL;
 }
 
-boolean lista_remover(LISTA *lista, int chave){
+boolean lista_remover(LISTA *lista, int chave, void (*apagar_conteudo)(void **conteudo)) {
     NO *aux = NULL;
     NO *p = NULL;
 
@@ -171,6 +170,7 @@ boolean lista_remover(LISTA *lista, int chave){
                 lista->fim = aux;
                 //nesse caso p->proximo ja aponta pra NULL pq o ultimo sempre aponta pra NULL
             }
+            item_apagar(&p->item, apagar_conteudo);
             free(p);
             lista->tamanho--;
             return(TRUE);

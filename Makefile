@@ -30,4 +30,4 @@ clean:
 	rm ./executavel
 
 debug:
-	gcc $(source) -I./include -o debugfile
+	gcc $(source) -I./include -o debugfile -Wall -Wextra -std=c99
