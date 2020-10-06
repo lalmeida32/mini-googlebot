@@ -85,7 +85,7 @@ void lista_imprimir(LISTA *lista){
      return;
 }
 
-/*Insere um novo no no fim da lista. PARA LISTAS NAO ORDENADAS*/
+//Insere um novo no de maneira ordenada na lista.
 boolean lista_inserir(LISTA *lista, ITEM *item){
 
     if((!lista_cheia(lista)) && (lista != NULL)){
