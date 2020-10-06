@@ -102,21 +102,21 @@ boolean lista_inserir(LISTA *lista, ITEM *item){
         }
         else{
             aux = lista->inicio;
-            key = item_get_chave(item);
+            key = item_get_chave(item, NULL);
 
-            if(key < item_get_chave(aux->item)){//o novo item que esta sendo eh menor que o inicio da lista
+            if(key < item_get_chave(aux->item, NULL)){//o novo item que esta sendo eh menor que o inicio da lista
                 pnovo->item = item;
                 lista->inicio = pnovo;
                 pnovo->proximo = aux;
             }
-            else if(key > item_get_chave(lista->fim->item)){//item deve ser inserido no fim
+            else if(key > item_get_chave(lista->fim->item, NULL)){//item deve ser inserido no fim
                     lista->fim->proximo = pnovo;
                     pnovo->item = item;
                     pnovo -> proximo = NULL;
                     lista->fim = pnovo;
             } 
             else{//percorrendo a lista
-                while(key > item_get_chave(aux->item)){
+                while(key > item_get_chave(aux->item, NULL)){
                     p = aux;
                     aux = aux->proximo;
                 }
