@@ -40,20 +40,27 @@ ITEM *item_criar(int chave, void *conteudo) {
 
 
 // Apagar item da memória Heap e fixar o valor NULL na variável que o armazenava
-void *item_apagar(ITEM **item) {
+void item_apagar(ITEM **item, void (*apagar_conteudo) (void **conteudo)) {
 
     // verifica se o item existe
-    if (!(*item)) return NULL;
+    if (!(*item)) return;
 
-    // armazenando conteudo para não ser perdido ao dar free
-    void *conteudo = (*item)->conteudo;
+    // apaga conteúdo
+    if ((*item)->conteudo) {
+
+        if (apagar_conteudo) {
+            apagar_conteudo(&(*item)->conteudo);
+        }
+
+        else {
+            free((*item)->conteudo);
+            (*item)->conteudo = NULL;
+        }
+    }
 
     // apagando item
     free(*item);
     *item = NULL;
-
-    // retorno do conteudo
-    return conteudo;
 }
 
 

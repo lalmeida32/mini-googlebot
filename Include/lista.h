@@ -14,7 +14,7 @@ typedef struct lista_ LISTA;
 LISTA *lista_criar(void);
 boolean lista_inserir(LISTA *lista, ITEM *i);
 
-void lista_apagar(LISTA **ptr);
+void lista_apagar(LISTA **ptr, void (*apagar_conteudo)(void **conteudo));
 boolean lista_remover(LISTA *lista, int chave);
 ITEM *lista_busca(LISTA *lista, int chave);
 
