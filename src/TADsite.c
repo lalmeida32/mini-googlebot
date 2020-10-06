@@ -21,9 +21,6 @@ void site_set_string(char *destination, const char *source, size_t max_length) {
 }
 
 
-
-
-
 int site_get_nome_max_length() {
     return sizeof(((SITE *) NULL)->nome);
 }
