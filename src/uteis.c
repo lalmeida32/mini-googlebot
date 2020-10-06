@@ -1,6 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+void flush(FILE *input) {
+    char c;
+    do {
+        c = fgetc(input);
+    } while(c != '\n');
+}
+
 char *ler_string(int length, FILE *input)
 {
 

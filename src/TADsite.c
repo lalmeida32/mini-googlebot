@@ -3,6 +3,7 @@
 #include<stdio.h>
 
 #include<TADsite.h>
+#include<uteis.h>
 
 struct site_t {
     char nome[50];
@@ -104,9 +105,9 @@ void site_read_nome(SITE *site, FILE *input) {
     site_set_nome(site, buffer_string); free(buffer_string);
 }
 
-void site_read_relevancia(SITE *site)
+void site_read_relevancia(SITE *site, FILE *input)
 {
-    int buffer_integer; scanf("%d", &buffer_integer);
+    int buffer_integer; fscanf(input, "%d", &buffer_integer); flush(input);
     site_set_relevancia(site, buffer_integer);
 }
 

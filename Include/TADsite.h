@@ -23,7 +23,7 @@
     boolean site_add_palavra_chave(SITE *site, const char *palavra_chave);
 
     void site_read_nome(SITE *site, FILE *input);
-    void site_read_relevancia(SITE *site);
+    void site_read_relevancia(SITE *site, FILE *input);
     void site_read_link(SITE *site, FILE *input);
     void site_read_palavra_chave(SITE *site, FILE *input);
 
