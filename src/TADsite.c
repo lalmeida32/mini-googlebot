@@ -15,7 +15,7 @@ struct site_t {
 
 
 
-void site_set_string(char *destination, const char *source, size_t max_length) {
+void site_set_string(char *destination, const char *source, int max_length) {
     strncpy(destination, source, max_length);
     destination[max_length - 1] = '\0';
 }
@@ -104,8 +104,7 @@ void site_read_nome(SITE *site, FILE *input) {
 
 void site_read_relevancia(SITE *site, FILE *input)
 {
-    int buffer_integer; fscanf(input, "%d", &buffer_integer); flush(input);
-    site_set_relevancia(site, buffer_integer);
+    site_set_relevancia(site, ler_integer(input));
 }
 
 void site_read_link(SITE *site, FILE *input) {

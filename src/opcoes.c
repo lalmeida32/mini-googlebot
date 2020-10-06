@@ -1,12 +1,14 @@
 #include<stdlib.h>
 #include<stdio.h>
+
+#include<uteis.h>
 #include<TADlista.h>
 #include<TADsite.h>
 
 void inserir_site(LISTA *lista_de_sites) {
     int chave;
 
-    printf("Chave: "); scanf("%d", &chave); flush();
+    printf("Chave: "); chave = ler_integer(stdin);
 
     // Exceção: Já existe um item com essa chave
     ITEM *item_encontrado = lista_busca(lista_de_sites, chave);
@@ -34,6 +36,18 @@ void inserir_site(LISTA *lista_de_sites) {
     site_read_link(item_get_conteudo(novo_item), stdin);
 
     int contador_de_palavras_chave = 0;
+    int continuar;
+    
+    printf("Digite '0' quando quiser parar de adicionar palavras-chave.\n");
+    do {
+        printf("Continuar? "); continuar = ler_integer(stdin); 
+        if (continuar) {
+            printf("Chave [%d]: ", contador_de_palavras_chave + 1);
+            site_read_palavra_chave(item_get_conteudo(novo_item), stdin);
+        }
+    } while (continuar && contador_de_palavras_chave < site_get_palavras_chave_max_count());
+
+    lista_inserir(lista_de_sites, novo_item);
 
 }
 

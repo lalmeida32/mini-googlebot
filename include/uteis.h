@@ -3,6 +3,8 @@
 
     #include<stdio.h>
 
+    void flush(FILE *input);
+    int ler_integer(FILE *input);
     char *ler_string(int length, FILE *input);
 
 #endif

@@ -5,7 +5,16 @@ void flush(FILE *input) {
     char c;
     do {
         c = fgetc(input);
-    } while(c != '\n');
+    } while(c != '\n' && !feof(input));
+}
+
+int ler_integer(FILE *input) {
+    int integer;
+
+    fscanf(input, "%d", &integer);
+    flush(input);
+
+    return integer;
 }
 
 char *ler_string(int length, FILE *input)
