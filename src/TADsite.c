@@ -22,6 +22,23 @@ void site_set_string(char *destination, const char *source, size_t max_length) {
 
 
 
+
+int site_get_nome_max_length() {
+    return sizeof(((SITE *) NULL)->nome);
+}
+
+int site_get_link_max_length() {
+    return sizeof(((SITE *) NULL)->link);
+}
+
+int site_get_palavra_chave_max_length() {
+    return sizeof(*(((SITE *) NULL)->palavras_chave));
+}
+
+int site_get_palavras_chave_max_count() {
+    return sizeof(((SITE *)NULL)->palavras_chave) / site_get_palavra_chave_max_length();
+}
+
 SITE *site_criar() {
     SITE *site = (SITE *) malloc(sizeof(SITE));
     if (!site) return NULL;
@@ -47,8 +64,7 @@ boolean site_set_nome(SITE *site, const char *nome) {
     
     if (!site || !nome) return FALSE;
 
-    const size_t max_length = sizeof(site->nome);
-    site_set_string(site->nome, nome, max_length);
+    site_set_string(site->nome, nome, site_get_nome_max_length());
 
     return TRUE;
 }
@@ -66,8 +82,7 @@ boolean site_set_link(SITE *site, const char *link) {
 
     if (!site || !link) return FALSE;
 
-    const size_t max_length = sizeof(site->link);
-    site_set_string(site->link, link, max_length);
+    site_set_string(site->link, link, site_get_link_max_length);
     
     return TRUE;
 }
@@ -76,11 +91,9 @@ boolean site_add_palavra_chave(SITE *site, const char *palavra_chave) {
     
     if (!site || !palavra_chave) return FALSE;
     
-    const size_t max_length = sizeof(*(site->palavras_chave));
-    const size_t max_palavras_chave = sizeof(site->palavras_chave) / max_length;
-    if (site->contador_de_palavras_chave >= max_palavras_chave) return FALSE;
+    if (site->contador_de_palavras_chave >= site_get_palavras_chave_max_count) return FALSE;
 
-    site_set_string(site->palavras_chave[site->contador_de_palavras_chave], palavra_chave, max_length);
+    site_set_string(site->palavras_chave[site->contador_de_palavras_chave], palavra_chave, site_get_palavra_chave_max_length);
     site->contador_de_palavras_chave++;
 
     return TRUE;

@@ -9,7 +9,12 @@
 
     SITE *site_criar();
     void site_apagar(SITE **site);
-    
+
+    int site_get_nome_max_length();
+    int site_get_link_max_length();
+    int site_get_palavra_chave_max_length();
+    int site_get_palavras_chave_max_count();
+
     boolean site_set_nome(SITE *site, const char *nome);
     boolean site_set_relevancia(SITE *site, int relevancia);
     boolean site_set_link(SITE *site, const char *link);
