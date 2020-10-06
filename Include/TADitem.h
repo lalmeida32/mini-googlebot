@@ -34,10 +34,20 @@
     // Receber a chave de um item
     // - Parâmetros
     //    -> item
+    // - Retorno
+    //    -> chave do item (em caso de erro, retorna -1)
+    int item_get_chave(ITEM *item);
+
+
+
+
+    // Receber a chave de um item
+    // - Parâmetros
+    //    -> item
     //    -> erro: se diferente de nulo, retorna (por referência) se houve erro ou não
     // - Retorno
     //    -> chave do item (em caso de erro, retorna -1)
-    int item_get_chave(ITEM *item, boolean *erro);
+    int item_get_chave_erro(ITEM *item, boolean *erro);
 
 
 
@@ -56,10 +66,22 @@
     // Receber o conteúdo de um item
     // - Parâmetros
     //    -> item
+    // - Retorno
+    //    -> conteúdo do item (em caso de erro, retorna NULL)
+    void *item_get_conteudo(ITEM *item);
+
+
+
+
+
+    // Receber o conteúdo de um item
+    // - Parâmetros
+    //    -> item
     //    -> erro: se diferente de nulo, retorna (por referência) se houve erro ou não
     // - Retorno
     //    -> conteúdo do item (em caso de erro, retorna NULL)
-    void *item_get_conteudo(ITEM *item, boolean *erro);
+    void *item_get_conteudo_erro(ITEM *item, boolean *erro);
+
 
 
 

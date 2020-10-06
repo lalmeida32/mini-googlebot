@@ -69,16 +69,33 @@ void item_apagar(ITEM **item, void (*apagar_conteudo) (void **conteudo)) {
 
 
 // Receber a chave de um item
-int item_get_chave(ITEM *item, boolean *erro) {
+int item_get_chave(ITEM *item) {
 
     // caso de erro (item não existe)
-    if (!item) {
-        if (erro) *erro = TRUE;
+    if (!item) return -1;
+
+    // sem erros
+    return item->chave;
+}
+
+
+
+
+// Receber a chave de um item
+int item_get_chave_erro(ITEM *item, boolean *erro)
+{
+
+    // caso de erro (item não existe)
+    if (!item)
+    {
+        if (erro)
+            *erro = TRUE;
         return -1;
     }
 
     // sem erros
-    if (erro) *erro = FALSE;
+    if (erro)
+        *erro = FALSE;
     return item->chave;
 }
 
@@ -102,18 +119,37 @@ boolean item_set_chave(ITEM *item, int chave) {
 
 
 // Receber o conteúdo de um item
-void *item_get_conteudo(ITEM *item, boolean *erro) {
+void *item_get_conteudo(ITEM *item) {
 
     // caso de erro (item não existe)
-    if (!item) {
-        if (erro) *erro = TRUE;
+    if (!item) return NULL;
+
+    // sem erros
+    return item->conteudo;
+}
+
+
+
+
+
+// Receber o conteúdo de um item
+void *item_get_conteudo_erro(ITEM *item, boolean *erro)
+{
+
+    // caso de erro (item não existe)
+    if (!item)
+    {
+        if (erro)
+            *erro = TRUE;
         return NULL;
     }
 
     // sem erros
-    if (erro) *erro = FALSE;
+    if (erro)
+        *erro = FALSE;
     return item->conteudo;
 }
+
 
 
 

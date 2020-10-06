@@ -98,3 +98,19 @@ boolean site_add_palavra_chave(SITE *site, const char *palavra_chave) {
 
     return TRUE;
 }
+
+void site_read_nome(SITE *site, FILE *input) {
+    char *buffer_string = ler_string(site_get_nome_max_length(), input);
+    site_set_nome(site, buffer_string); free(buffer_string);
+}
+
+void site_read_relevancia(SITE *site)
+{
+    int buffer_integer; scanf("%d", &buffer_integer);
+    site_set_relevancia(site, buffer_integer);
+}
+
+void site_read_link(SITE *site, FILE *input) {
+    char *buffer_string = ler_string(site_get_link_max_length(), input);
+    site_set_link(site, buffer_string); free(buffer_string);
+}

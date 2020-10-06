@@ -3,27 +3,6 @@
 #include<TADlista.h>
 #include<TADsite.h>
 
-char *ler_string(int length, FILE *input) {
-    
-    char *string = (char *) malloc(length * sizeof(char));
-    int pos = 0;
-    char c;
-
-    do {
-        c = fgetc(input);
-        string[pos++] = c;
-    } while (c != '\n' && !feof(input) && pos < length);
-    string[pos-1] = '\0';
-
-    while (c != '\n' && !feof(input)) {
-        c = fgetc(input);
-    }
-
-    return string;
-}
-
-
-
 void inserir_site(LISTA *lista_de_sites) {
     int chave;
 
@@ -49,15 +28,15 @@ void inserir_site(LISTA *lista_de_sites) {
 
     // Adicionando o nome
     printf("Nome: "); buffer_string = ler_string(site_get_nome_max_length(), stdin);
-    site_set_nome(item_get_conteudo(novo_item, NULL), buffer_string); free(buffer_string);
+    site_set_nome(item_get_conteudo(novo_item), buffer_string); free(buffer_string);
 
     // Adicionando a relevância
     printf("Relevância: "); scanf("%d", &buffer_integer);
-    site_set_relevancia(item_get_conteudo(novo_item, NULL), buffer_integer);
+    site_set_relevancia(item_get_conteudo(novo_item), buffer_integer);
 
     // Adicionando o link
     printf("Link: "); buffer_string = ler_string(site_get_link_max_length(), stdin);
-    site_set_link(item_get_conteudo(novo_item, NULL), buffer_string); free(buffer_string);
+    site_set_link(item_get_conteudo(novo_item), buffer_string); free(buffer_string);
 
     // Adicionando as palavras-chave
     int contador_de_palavras_chave = 0;
@@ -66,7 +45,7 @@ void inserir_site(LISTA *lista_de_sites) {
     do {
         printf("Chave [%d]: ", contador_de_palavras_chave + 1);
         buffer_string = ler_string(site_get_palavra_chave_max_length(), stdin);
-        site_add_palavra_chave(item_get_conteudo(novo_item, NULL), buffer_string);
+        site_add_palavra_chave(item_get_conteudo(novo_item), buffer_string);
         free(buffer_string);
         contador_de_palavras_chave++;
     } while(contador_de_palavras_chave < site_get_palavras_chave_max_count());

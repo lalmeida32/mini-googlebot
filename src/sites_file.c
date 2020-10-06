@@ -50,15 +50,15 @@ ITEM *separa_dados(char *dados){
     while( token != NULL ){
         token = strtok(NULL, ',');
         if(i == 1)
-            site_set_nome(item_get_conteudo(item, NULL), token);
+            site_set_nome(item_get_conteudo(item), token);
         else if(i == 2){
             aux = atoi(token);
-            site_set_relevancia(item_get_conteudo(item, NULL), aux);
+            site_set_relevancia(item_get_conteudo(item), aux);
         }
         else if(i == 3)
-            site_set_link(item_get_conteudo(item, NULL), token);
+            site_set_link(item_get_conteudo(item), token);
         else
-            site_add_palavra_chave(item_get_conteudo(item, NULL), token);
+            site_add_palavra_chave(item_get_conteudo(item), token);
         i++;
    }
    return item;
