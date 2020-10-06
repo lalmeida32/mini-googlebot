@@ -53,14 +53,55 @@ void inserir_site(LISTA *lista_de_sites) {
 }
 
 void remover_site(LISTA *lista_de_sites) {
+    
 
 }
 
 void inserir_palavra_chave(LISTA *lista_de_sites) {
+    int chave, contador_de_palavras_chave, continuar;
+    ITEM *item;
+
+    printf("Digite a chave do site que vc deseja inserir uma palavra-chave\n"); chave = ler_integer(stdin);
+    
+    item = lista_busca(lista_de_sites, chave);
+
+    if(item != NULL){
+        //obtendo a quantidade de chaves do site
+        contador_de_palavras_chave = site_get_num_palavras_chave(item_get_conteudo(item));
+
+        if(contador_de_palavras_chave < 10){
+            printf("Digite '0' quando quiser parar de adicionar palavras-chave.\n");
+            do {
+                printf("Continuar? (Digite '1') "); continuar = ler_integer(stdin); 
+                if (continuar) {
+                    printf("Chave [%d]: ", contador_de_palavras_chave + 1);
+                    site_read_palavra_chave(item_get_conteudo(item), stdin);
+                }
+                contador_de_palavras_chave++;
+            } while (continuar && contador_de_palavras_chave < site_get_palavras_chave_max_count());
+        }
+        else
+            printf("Voce ja atingiu o limite de palavras chave para esse site\n");
+    }
+    else
+        printf("Site nao encontrado");
 
 }
 
 void atualizar_relevancia(LISTA *lista_de_sites) {
+    int chave;
+    ITEM *item;
+
+    printf("Digite a chave do site que vc deseja atualizar a relevancia\n"); chave = ler_integer(stdin);
+    
+    item = lista_busca(lista_de_sites, chave);
+
+    if(item != NULL){
+        printf("Relevância: ");
+        site_read_relevancia(item_get_conteudo(item), stdin);
+    }
+    else
+        printf("Site nao encontrado");
 
 }
 

@@ -97,6 +97,13 @@ boolean site_add_palavra_chave(SITE *site, const char *palavra_chave) {
     return TRUE;
 }
 
+
+int site_get_num_palavras_chave(SITE *site){
+    if(site != NULL)
+        return site->contador_de_palavras_chave;
+}
+
+
 void site_read_nome(SITE *site, FILE *input) {
     char *buffer_string = ler_string(site_get_nome_max_length(), input);
     site_set_nome(site, buffer_string); free(buffer_string);

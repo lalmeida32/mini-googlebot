@@ -16,6 +16,7 @@
     int site_get_link_max_length();
     int site_get_palavra_chave_max_length();
     int site_get_palavras_chave_max_count();
+    int site_get_num_palavras_chave(SITE *site);
 
     boolean site_set_nome(SITE *site, const char *nome);
     boolean site_set_relevancia(SITE *site, int relevancia);
