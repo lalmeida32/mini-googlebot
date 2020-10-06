@@ -11,7 +11,7 @@ all:
 	ar rcs libopcoes.a src/opcoes.o
 	ar rcs libsites_file.a src/sites_file.o
 
-	gcc -o executavel main.c -L. -litem -llista -lsite -I./include
+	gcc -o executavel main.c -L. -lTADitem -lTADlista -lTADsite -lopcoes -lsites_file -I./include
 
 run:
 	./executavel

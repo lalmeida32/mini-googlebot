@@ -16,7 +16,11 @@ struct site_t {
 
 
 void site_set_string(char *destination, const char *source, int max_length) {
+<<<<<<< HEAD
     strncpy(destination, source, max_length);
+=======
+    strncpy(destination, source, (int) max_length);
+>>>>>>> 511f6c74aae5dd3ffd0573087e8a0161c6817669
     destination[max_length - 1] = '\0';
 }
 
@@ -80,7 +84,7 @@ boolean site_set_link(SITE *site, const char *link) {
 
     if (!site || !link) return FALSE;
 
-    site_set_string(site->link, link, site_get_link_max_length);
+    site_set_string(site->link, link, site_get_link_max_length());
     
     return TRUE;
 }
@@ -89,9 +93,9 @@ boolean site_add_palavra_chave(SITE *site, const char *palavra_chave) {
     
     if (!site || !palavra_chave) return FALSE;
     
-    if (site->contador_de_palavras_chave >= site_get_palavras_chave_max_count) return FALSE;
+    if (site->contador_de_palavras_chave >= site_get_palavras_chave_max_count()) return FALSE;
 
-    site_set_string(site->palavras_chave[site->contador_de_palavras_chave], palavra_chave, site_get_palavra_chave_max_length);
+    site_set_string(site->palavras_chave[site->contador_de_palavras_chave], palavra_chave, site_get_palavra_chave_max_length());
     site->contador_de_palavras_chave++;
 
     return TRUE;
