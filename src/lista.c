@@ -45,9 +45,7 @@ LISTA *lista_criar(void){
    return (lista);
 }
 
- 
-/*Verifica se a lista esta vazia. Retorna TRUE em caso positivo e FALSE
-caso contrario*/    
+  
 boolean lista_vazia(LISTA *lista){
     if((lista != NULL) && lista->inicio == NULL)
         return(TRUE);
@@ -55,8 +53,6 @@ boolean lista_vazia(LISTA *lista){
 }
 
 
-/*Verifica se a lista esta cheia. Retorna TRUE em caso positivo e FALSE
-caso contrario*/
 boolean lista_cheia(LISTA *lista){
     NO *no = (NO *) malloc(sizeof(NO));
     if (no != NULL){
@@ -75,7 +71,7 @@ void lista_imprimir(LISTA *lista){
      int i;
      NO *p;
      if (lista != NULL){
-        p = lista->inicio; /*/lista vem por referencia. usamos p como auxiliar para nao alterar a lista*/
+        p = lista->inicio;
         printf("\n");
         while(p != NULL){
             printf("[%d]; ", item_get_chave(p->item, NULL));
