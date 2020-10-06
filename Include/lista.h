@@ -12,16 +12,21 @@
 typedef struct lista_ LISTA;
 
 LISTA *lista_criar(void);
-boolean lista_inserir(LISTA *lista, ITEM *i);
 
-void lista_apagar(LISTA **ptr);
-boolean lista_remover(LISTA *lista, int chave);
-ITEM *lista_busca(LISTA *lista, int chave);
+boolean lista_vazia(LISTA *lista);
+
+boolean lista_cheia(LISTA *lista);
 
 int lista_tamanho(LISTA *lista);
-boolean lista_vazia(LISTA *lista);
-boolean lista_cheia(LISTA *lista);
+
 void lista_imprimir(LISTA *lista);
 
+boolean lista_inserir(LISTA *lista, ITEM *i);
+
+ITEM *lista_busca(LISTA *lista, int chave);
+
+boolean lista_remover(LISTA *lista, int chave);
+
+void lista_apagar(LISTA **ptr);
 
 #endif
