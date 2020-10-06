@@ -114,3 +114,8 @@ void site_read_link(SITE *site, FILE *input) {
     char *buffer_string = ler_string(site_get_link_max_length(), input);
     site_set_link(site, buffer_string); free(buffer_string);
 }
+
+void site_read_palavra_chave(SITE *site, FILE *input) {
+    char *buffer_string = ler_string(site_get_palavra_chave_max_length(), input);
+    site_add_palavra_chave(site, buffer_string); free(buffer_string);
+}
