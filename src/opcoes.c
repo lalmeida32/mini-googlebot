@@ -10,17 +10,17 @@ void inserir_site(LISTA *lista_de_sites) {
 
     printf("Chave: "); chave = ler_integer(stdin);
 
+    // Exceção: Chave possui valor inválido
+    if (chave < 0 || chave > 9999) {
+        printf("Não foi possível inserir esse site. (Valor inválido para chave)\n");
+        return;
+    }
+
     // Exceção: Já existe um item com essa chave
     ITEM *item_encontrado = lista_busca(lista_de_sites, chave);
 
     if (item_encontrado) {
         printf("Não foi possível inserir esse site. (Chave já existente)\n");
-        return;
-    }
-
-    // Exceção: Chave possui valor inválido
-    if (chave < 0 || chave > 9999) {
-        printf("Não foi possível inserir esse site. (Valor inválido para chave)\n");
         return;
     }
 
@@ -48,12 +48,36 @@ void inserir_site(LISTA *lista_de_sites) {
         contador_de_palavras_chave++;
     } while (continuar && contador_de_palavras_chave < site_get_palavras_chave_max_count());
 
-    lista_inserir(lista_de_sites, novo_item);
+    if (lista_inserir(lista_de_sites, novo_item)) {
+        printf("Item inserido com sucesso!\n");
+    }
+    else {
+        printf("Ocorreu um erro ao inserir este item!\n");
+        item_apagar(&novo_item, (void (*) (void **)) &site_apagar);
+    }
+
 
 }
 
 void remover_site(LISTA *lista_de_sites) {
-    
+    int chave;
+
+    printf("Chave: ");
+    chave = ler_integer(stdin);
+
+    // Exceção: Chave possui valor inválido
+    if (chave < 0 || chave > 9999)
+    {
+        printf("Não foi possível inserir esse site. (Valor inválido para chave)\n");
+        return;
+    }
+
+    if (lista_remover(lista_de_sites, chave, (void (*) (void **)) &site_apagar)) {
+        printf("Item removido com sucesso!\n");
+    }
+    else {
+        printf("Não foi possível remover este item!\n");
+    }
 
 }
 

@@ -75,7 +75,7 @@ ITEM *lista_busca(LISTA *lista, int chave);
 //    -> chave do item
 // - Retorno
 //    -> TRUE se o item for removido e FALSE se a lista nao existir ou se o item nao foi encotrado para ser removido
-boolean lista_remover(LISTA *lista, int chave);
+boolean lista_remover(LISTA *lista, int chave, void (*apagar_conteudo)(void **conteudo));
 
 
 //apaga a lista da memoria
