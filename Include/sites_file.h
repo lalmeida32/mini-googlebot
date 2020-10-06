@@ -11,7 +11,7 @@
     //    -> inteiro com o numero de sites dento do arquivo
     int conta_sites(FILE *arquivo);
 
-    //funcao recebe o googlebot.txt e 
+    //funcao que recebe os sites e seus dados do googlebot.txt e os insere na lista como item
     // - Parâmetros
     //    -> arquivo: arquivo googlebot.txt
     //    -> num_sites: o numero de sites que eh obtido com a funcao conta_sites

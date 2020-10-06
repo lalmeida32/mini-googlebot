@@ -81,8 +81,8 @@ boolean lista_remover(LISTA *lista, int chave);
 //apaga a lista da memoria
 // - Parâmetros
 //    -> endereço da lista que deseja apagar
-//    -> Se queira apagar o conteudo usando uma funcao passe o endereco dela
-//se ao inves disso quiser usar a funcao free da <stdlib.h> passe NULL
+//    -> Se quiser apagar o conteudo usando uma funcao, passe o endereco dela,
+//se ao inves disso quiser usar a funcao free da <stdlib.h>, passe NULL
 // - Retorno
 //    -> void
 void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo));
