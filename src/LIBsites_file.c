@@ -39,8 +39,7 @@ ITEM *separa_dados(char *dados){
     ITEM *item;
     char *token;
     int aux, i = 1;
-    //sabemos quais sao as informacoes de um site e a ordem: Codigo, Nome, Relevancia, link, Palavras-chave
-
+    //sabemos quais sao as informacoes de um site e a ordem: Chave, Nome, Relevancia, link, Palavras-chave
     //obtendo a chave
     token = strtok(dados, ',');
     aux = atoi(token);

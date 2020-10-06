@@ -129,7 +129,7 @@ boolean lista_inserir(LISTA *lista, ITEM *item){
 }
     
 
-
+//realiza uma busca na lista a procura de um item
 ITEM *lista_busca(LISTA *lista, int chave){
     NO *aux;
 
@@ -157,7 +157,7 @@ boolean lista_remover(LISTA *lista, int chave){
             aux = p;
             p = p->proximo;
         }
-        //item encotrada, vamos remove-lo
+        //item encotrado, vamos remove-lo
         if(p != NULL){
             if(p == lista->inicio){
                 lista->inicio = p->proximo;
@@ -169,31 +169,30 @@ boolean lista_remover(LISTA *lista, int chave){
             }
             if(p == lista->fim){
                 lista->fim = aux;
-                //p->proximo ja apontava pra NULL pq o ultimo sempre aponta pra NULL
+                //nesse caso p->proximo ja aponta pra NULL pq o ultimo sempre aponta pra NULL
             }
             free(p);
             lista->tamanho--;
             return(TRUE);
-        }
-        else
-            return(FALSE);
+        }            
     }
+    return(FALSE);
 }
 
-void lista_apagar(LISTA **ptr, void (*apagar_conteudo)(void **conteudo)) {
+void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo)) {
     NO *aux = NULL;
 
-    if( ((*ptr) != NULL) && (!lista_vazia(*ptr)) ){
-        aux = (*ptr)->inicio;
+    if( ((*lista) != NULL) && (!lista_vazia(*lista)) ){
+        aux = (*lista)->inicio;
 
-        while((*ptr)->inicio != NULL){
-            (*ptr)->inicio = aux->proximo;
+        while((*lista)->inicio != NULL){
+            (*lista)->inicio = aux->proximo;
             item_apagar(&aux->item, apagar_conteudo);
             aux->proximo = NULL; 
             free(aux);
             aux = NULL;
         }
-        free(*ptr);
-        (*ptr) = NULL;
+        free(*lista);
+        (*lista) = NULL;
     }
 }
