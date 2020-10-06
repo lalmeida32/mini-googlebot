@@ -179,7 +179,8 @@ boolean lista_remover(LISTA *lista, int chave){
     return(FALSE);
 }
 
-void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo)) {
+void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo))
+{
     NO *aux = NULL;
 
     if( ((*lista) != NULL) && (!lista_vazia(*lista)) ){
@@ -190,7 +191,7 @@ void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo)) {
             item_apagar(&aux->item, apagar_conteudo);
             aux->proximo = NULL; 
             free(aux);
-            aux = NULL;
+            aux = (*lista)->inicio;
         }
         free(*lista);
         (*lista) = NULL;

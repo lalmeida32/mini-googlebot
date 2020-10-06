@@ -16,11 +16,7 @@ struct site_t {
 
 
 void site_set_string(char *destination, const char *source, int max_length) {
-<<<<<<< HEAD
     strncpy(destination, source, max_length);
-=======
-    strncpy(destination, source, (int) max_length);
->>>>>>> 511f6c74aae5dd3ffd0573087e8a0161c6817669
     destination[max_length - 1] = '\0';
 }
 
@@ -119,4 +115,15 @@ void site_read_link(SITE *site, FILE *input) {
 void site_read_palavra_chave(SITE *site, FILE *input) {
     char *buffer_string = ler_string(site_get_palavra_chave_max_length(), input);
     site_add_palavra_chave(site, buffer_string); free(buffer_string);
+}
+
+void site_imprimir(SITE *site) {
+    printf("Nome: %s\n", site->nome);
+    printf("Relevância: %d\n", site->relevancia);
+    printf("Link: %s\n", site->link);
+    printf("Palavras-chave: ");
+    for (int i = 0; i < site->contador_de_palavras_chave; i++)
+        printf("%s; ", site->palavras_chave[i]);
+    
+    printf("\n\n");
 }

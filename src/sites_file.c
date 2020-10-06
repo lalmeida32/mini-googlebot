@@ -16,9 +16,6 @@ char *readline(FILE *stream) {
 
     string[pos] = '\0';
 
-    //removendo o espaço adicional criado no realloc
-    string = (char *) realloc(string, pos + 1);
-
     return string;
 }
 
@@ -81,6 +78,7 @@ LISTA *recebe_dados(FILE *arquivo, int num_sites){
         item = separa_dados(dados_site);
         lista_inserir(lista, item);
         i++;
+        free(dados_site);
     }
     return lista;
 }  

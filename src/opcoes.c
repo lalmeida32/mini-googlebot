@@ -40,11 +40,12 @@ void inserir_site(LISTA *lista_de_sites) {
     
     printf("Digite '0' quando quiser parar de adicionar palavras-chave.\n");
     do {
-        printf("Continuar? "); continuar = ler_integer(stdin); 
+        printf("Continuar? (Digite '1') "); continuar = ler_integer(stdin); 
         if (continuar) {
             printf("Chave [%d]: ", contador_de_palavras_chave + 1);
             site_read_palavra_chave(item_get_conteudo(novo_item), stdin);
         }
+        contador_de_palavras_chave++;
     } while (continuar && contador_de_palavras_chave < site_get_palavras_chave_max_count());
 
     lista_inserir(lista_de_sites, novo_item);
