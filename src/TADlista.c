@@ -74,7 +74,7 @@ void lista_imprimir(LISTA *lista){
         p = lista->inicio;
         printf("\n");
         while(p != NULL){
-            printf("[%d]; ", item_get_chave(p->item, NULL));
+            printf("[%d]; ", item_get_chave(p->item));
             p = p->proximo;
         } 
      }
@@ -98,21 +98,21 @@ boolean lista_inserir(LISTA *lista, ITEM *item){
         }
         else{
             aux = lista->inicio;
-            key = item_get_chave(item, NULL);
+            key = item_get_chave(item);
 
-            if(key < item_get_chave(aux->item, NULL)){//o novo item que esta sendo eh menor que o inicio da lista
+            if(key < item_get_chave(aux->item)){//o novo item que esta sendo eh menor que o inicio da lista
                 pnovo->item = item;
                 lista->inicio = pnovo;
                 pnovo->proximo = aux;
             }
-            else if(key > item_get_chave(lista->fim->item, NULL)){//item deve ser inserido no fim
+            else if(key > item_get_chave(lista->fim->item)){//item deve ser inserido no fim
                     lista->fim->proximo = pnovo;
                     pnovo->item = item;
                     pnovo -> proximo = NULL;
                     lista->fim = pnovo;
             } 
             else{//percorrendo a lista
-                while(key > item_get_chave(aux->item, NULL)){
+                while(key > item_get_chave(aux->item)){
                     p = aux;
                     aux = aux->proximo;
                 }
@@ -137,7 +137,7 @@ ITEM *lista_busca(LISTA *lista, int chave){
         aux = lista->inicio;
 
         while(aux != NULL){
-            if(item_get_chave(aux->item, NULL) == chave)
+            if(item_get_chave(aux->item) == chave)
                 return (aux->item);
             aux = aux->proximo;
         }
@@ -152,7 +152,7 @@ boolean lista_remover(LISTA *lista, int chave){
     if(lista != NULL){
         p = lista->inicio;
 
-        while(p != NULL && item_get_chave(p->item, NULL) != chave){
+        while(p != NULL && item_get_chave(p->item) != chave){
             //vamos percorrer toda a lista
             aux = p;
             p = p->proximo;

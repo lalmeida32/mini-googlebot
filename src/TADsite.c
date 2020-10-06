@@ -3,6 +3,7 @@
 #include<stdio.h>
 
 #include<TADsite.h>
+#include<uteis.h>
 
 struct site_t {
     char nome[50];
@@ -94,4 +95,25 @@ boolean site_add_palavra_chave(SITE *site, const char *palavra_chave) {
     site->contador_de_palavras_chave++;
 
     return TRUE;
+}
+
+void site_read_nome(SITE *site, FILE *input) {
+    char *buffer_string = ler_string(site_get_nome_max_length(), input);
+    site_set_nome(site, buffer_string); free(buffer_string);
+}
+
+void site_read_relevancia(SITE *site, FILE *input)
+{
+    int buffer_integer; fscanf(input, "%d", &buffer_integer); flush(input);
+    site_set_relevancia(site, buffer_integer);
+}
+
+void site_read_link(SITE *site, FILE *input) {
+    char *buffer_string = ler_string(site_get_link_max_length(), input);
+    site_set_link(site, buffer_string); free(buffer_string);
+}
+
+void site_read_palavra_chave(SITE *site, FILE *input) {
+    char *buffer_string = ler_string(site_get_palavra_chave_max_length(), input);
+    site_add_palavra_chave(site, buffer_string); free(buffer_string);
 }
