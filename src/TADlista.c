@@ -54,13 +54,19 @@ boolean lista_vazia(LISTA *lista){
 
 
 boolean lista_cheia(LISTA *lista){
-    NO *no = (NO *) malloc(sizeof(NO));
-    if (no != NULL){
-       free(no);
-       no = NULL;
-       return (FALSE);
+    if((lista != NULL) && lista->fim != NULL){
+        NO *no = (NO *) malloc(sizeof(NO));
+        //se conseguirmos criar esse no, entao ainda tem memoria, 
+        //logo a lista ainda nao esta cheia
+        if (no != NULL){
+            free(no);
+            no = NULL;
+            return (FALSE);
+        }
+        return(TRUE);
     }
-    return(TRUE);
+    else
+        return(FALSE);
 }
 
 int lista_tamanho(LISTA *lista){

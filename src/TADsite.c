@@ -100,7 +100,8 @@ boolean site_add_palavra_chave(SITE *site, const char *palavra_chave) {
 
 int site_get_num_palavras_chave(SITE *site){
     if(site != NULL)
-        return site->contador_de_palavras_chave;
+        return (site->contador_de_palavras_chave);
+    return (-1);
 }
 
 
