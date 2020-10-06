@@ -33,16 +33,8 @@ int conta_sites(FILE *arquivo){
     return num_sites;
 }
 
-struct site_t {
-    char nome[50];
-    int relevancia;
-    char link[100];
-    char palavras_chave[10][50];
-    int contador_de_palavras_chave;
-};
 
-
-//funcao que separa os dados
+//funcao que separa os dados e os atribui para o item
 ITEM *separa_dados(char *dados){
     ITEM *item;
     char *token;
@@ -69,25 +61,30 @@ ITEM *separa_dados(char *dados){
             site_add_palavra_chave(item_get_conteudo(item, NULL), token);
         i++;
    }
+   return item;
 }
 
 
-//funcao que recebe os dados do googlebot.txt e as armazena
-void recebe_dados(FILE *arquivo, int num_sites, LISTA *lista){
+//funcao que recebe os dados do googlebot.txt e os insere na lista
+LISTA *recebe_dados(FILE *arquivo, int num_sites){
+    char *dados_site;
     int i = 0;
+    ITEM *item;
+    LISTA *lista = lista_criar();
 
     //posicionando o cursor no inicio do arquivo
     fseek(arquivo, 0, SEEK_SET);
 
     //lendo os dados do arquivo
     while(i < num_sites){            
-        
-       if(i == 0){
-           dados_site = readline(arquivo);
+        dados_site = readline(arquivo);
+        item = separa_dados(dados_site);
+        lista_inserir(lista, item);
+        i++;
+    }
+    return lista;
+}  
 
-       }
-    }  
-}
 
 
 
