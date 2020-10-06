@@ -1,6 +1,8 @@
 #include<stdio.h>
+#include<stdlib.h>
+#include<item.h>
 
 int main(void) {
-    //testee
-    // eu to testando aqui
+
+    return 0;
 }
