@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <TADitem.h>
+#include <TADlista.h>
+#include <TADsite.h>
+#include <sites_file.h>
+
+
+char *readline(FILE *stream) {
+    char *string = (char *) malloc(700);
+    int pos = 0;
+    do{
+        string[pos] = (char) fgetc(stream);
+    }while(string[pos] != '\n' && !feof(stream) && ++pos);
+
+    string[pos] = '\0';
+
+    //removendo o espaço adicional criado no realloc
+    string = (char *) realloc(string, pos + 1);
+
+    return string;
+}
+
+int conta_sites(FILE *arquivo){
+    int num_sites = 1;
+
+    while(!feof(arquivo)){
+        char c = fgetc(arquivo);
+        //se n for de fato o fim do arquvo e encontrar um \n contamos um site
+        if(!feof(arquivo) && c == '\n')
+            num_sites++;
+    }
+    return num_sites;
+}
+
+
+//funcao que separa os dados e os atribui para o item
+ITEM *separa_dados(char *dados){
+    ITEM *item;
+    char *token;
+    int aux, i = 1;
+    //sabemos quais sao as informacoes de um site e a ordem: Chave, Nome, Relevancia, link, Palavras-chave
+    //obtendo a chave
+    token = strtok(dados, ',');
+    aux = atoi(token);
+    item = item_criar(aux, site_criar());
+
+    //obtendo os outros dados
+    while( token != NULL ){
+        token = strtok(NULL, ',');
+        if(i == 1)
+            site_set_nome(item_get_conteudo(item, NULL), token);
+        else if(i == 2){
+            aux = atoi(token);
+            site_set_relevancia(item_get_conteudo(item, NULL), aux);
+        }
+        else if(i == 3)
+            site_set_link(item_get_conteudo(item, NULL), token);
+        else
+            site_add_palavra_chave(item_get_conteudo(item, NULL), token);
+        i++;
+   }
+   return item;
+}
+
+
+//funcao que recebe os dados do googlebot.txt e os insere na lista
+LISTA *recebe_dados(FILE *arquivo, int num_sites){
+    char *dados_site;
+    int i = 0;
+    ITEM *item;
+    LISTA *lista = lista_criar();
+
+    //posicionando o cursor no inicio do arquivo
+    fseek(arquivo, 0, SEEK_SET);
+
+    //lendo os dados do arquivo
+    while(i < num_sites){            
+        dados_site = readline(arquivo);
+        item = separa_dados(dados_site);
+        lista_inserir(lista, item);
+        i++;
+    }
+    return lista;
+}  
+
+
+
+
+
