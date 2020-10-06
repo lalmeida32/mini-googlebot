@@ -186,14 +186,11 @@ boolean lista_remover(LISTA *lista, int chave){
 
 void lista_apagar(LISTA **ptr){
     NO *aux = NULL;
-    NO *p = NULL;
 
     if( ((*ptr) != NULL) && (!lista_vazia(*ptr)) ){
-        p = (*ptr)->inicio;
+        aux = (*ptr)->inicio;
 
         while((*ptr)->inicio != NULL){
-            aux = p;
-            p = p->proximo;
             (*ptr)->inicio = aux->proximo;
             item_apagar(&aux->item);
             aux->proximo = NULL; 
@@ -202,8 +199,6 @@ void lista_apagar(LISTA **ptr){
         }
         free(*ptr);
         (*ptr) = NULL;
-        //free(p);
-
     }
 }
 
