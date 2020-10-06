@@ -2,7 +2,7 @@
 #include<string.h>
 #include<stdio.h>
 
-#include<site.h>
+#include<TADsite.h>
 
 struct site_t {
     char nome[50];

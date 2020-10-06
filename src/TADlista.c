@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <item.h>
-#include <lista.h>
+#include <TADitem.h>
+#include <TADlista.h>
 
 
 

@@ -20,10 +20,10 @@
 
 
 
-
     // Apagar item da memória Heap e fixar o valor NULL na variável que o armazenava
     // - Parâmetros
     //    -> item: endereço da estrutura item a ser apagada
+    //    -> apagar_conteudo: ponteiro para função que apaga conteúdo do item
     // - Retorno
     //    -> conteúdo do item, NULL se der erro
     void item_apagar(ITEM **item, void (*apagar_conteudo) (void **conteudo));
