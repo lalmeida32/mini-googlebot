@@ -15,3 +15,7 @@ all:
 
 run:
 	./executavel
+
+clean:
+	-rm *.a
+	-rm src/*.o
