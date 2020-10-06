@@ -1,0 +1,7 @@
+0001,YouTube,900,https://www.youtube.com/,youtube,videos,online
+0002,Netflix,800,https://www.netflix.com.br/,netflix,videos,streaming
+0006,Facebook,950,https://www.facebook.com.br/,social,network,share
+2654,Pudim,200,https://www.pudim.com/,pudim
+0009,Spotify,720,https://www.spotify.com/,music,song,podcast,social
+0103,Tidia,150,https://www.tidia.com/,education,university
+0003,Gmail,940,https://www.gmail.com/,email,google
