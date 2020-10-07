@@ -19,14 +19,14 @@ int main(void) {
     lista_de_sites = recebe_dados(fp, num_sites);
     fclose(fp);
 
-    printf("Bem-vindo ao mini-googlebot!\n\n");
+    printf("Bem-vindo ao mini-googlebot!\n");
     do {
-        printf("*** Menu ***\n");
+        printf("\n*** Menu ***\n");
         printf("1 - Inserir Site\n");
         printf("2 - Remover Site\n");
         printf("3 - Inserir Palavra-chave\n");
         printf("4 - Atualizar Relevância\n");
-        printf("5 - Sair\n");
+        printf("5 - Sair\n\n");
 
         scanf("%d", &opcao);
         chamar_opcao(lista_de_sites, opcao);
@@ -37,8 +37,6 @@ int main(void) {
         printf("Dados gravados com sucesso!\n");
     else
         printf("Falha ao gravar dados...\n");
-
-
 
     lista_apagar(&lista_de_sites, (void (*)(void **)) & site_apagar);
 
