@@ -43,15 +43,19 @@ void inserir_site(LISTA *lista_de_sites) {
     int continuar;
     
     // adicionando n palavras chave, até o máximo ser atingido ou até o usuário digitar algo diferente de '0'
-    printf("Digite '0' quando quiser parar de adicionar palavras-chave.\n");
+    printf("Digite '-1' quando quiser parar de adicionar palavras-chave.\n");
     do {
-        printf("Continuar? (Digite '1') "); continuar = ler_integer(stdin); 
-        if (continuar) {
-            printf("Chave [%d]: ", contador_de_palavras_chave + 1);
-            site_read_palavra_chave(item_get_conteudo(novo_item), stdin);
+        char *palavra_chave;
+        printf("Chave [%d]: ", contador_de_palavras_chave);
+        palavra_chave = ler_string(site_get_palavra_chave_max_length(), stdin);
+        continuar = atoi(palavra_chave); 
+        if (continuar != -1) {  
+            site_add_palavra_chave(item_get_conteudo(novo_item), palavra_chave);
+            contador_de_palavras_chave++;
         }
-        contador_de_palavras_chave++;
-    } while (continuar && contador_de_palavras_chave < site_get_palavras_chave_max_count());
+        free(palavra_chave);
+    } while (continuar != -1 && contador_de_palavras_chave < site_get_palavras_chave_max_count());
+    printf("Voce ja atingiu o limite de palavras chave para esse site\n");
 
     // acrescentando o link à lista e verificando se foi mesmo possível adicioná-lo
     if (lista_inserir(lista_de_sites, novo_item)) {
@@ -104,24 +108,27 @@ void inserir_palavra_chave(LISTA *lista_de_sites) {
         //obtendo a quantidade de chaves do site
         contador_de_palavras_chave = site_get_num_palavras_chave(item_get_conteudo(item));
 
-        // verificação se o máximo de palavras-chave foi atingido
-        if(contador_de_palavras_chave < site_get_palavras_chave_max_count()){
-            printf("Digite '0' quando quiser parar de adicionar palavras-chave.\n");
+        if(contador_de_palavras_chave < 10){
+            // adicionando n palavras chave, até o máximo ser atingido ou até o usuário digitar algo diferente de '0'
+            printf("Digite '-1' quando quiser parar de adicionar palavras-chave.\n");
             do {
-                printf("Continuar? (Digite '1') "); continuar = ler_integer(stdin); 
-                if (continuar) {
-                    printf("Chave [%d]: ", contador_de_palavras_chave + 1);
-                    site_read_palavra_chave(item_get_conteudo(item), stdin);
+                char *palavra_chave;
+                printf("Chave [%d]: ", contador_de_palavras_chave);
+                palavra_chave = ler_string(site_get_palavra_chave_max_length(), stdin);
+                continuar = atoi(palavra_chave); 
+                if (continuar != -1) {
+                    site_add_palavra_chave(item_get_conteudo(item), palavra_chave);
+                    contador_de_palavras_chave++;
                 }
-                contador_de_palavras_chave++;
-            } while (continuar && contador_de_palavras_chave < site_get_palavras_chave_max_count());
+                free(palavra_chave);
+            } while (continuar != -1 && contador_de_palavras_chave < site_get_palavras_chave_max_count());
+            printf("Voce ja atingiu o limite de palavras chave para esse site\n");
         }
         else
             printf("Voce ja atingiu o limite de palavras chave para esse site\n");
     }
     else
         printf("Site nao encontrado\n");
-
 }
 
 // Função que lê uma chave e um valor inteiro da entrada padrão (stdin)
