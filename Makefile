@@ -1,4 +1,4 @@
-libs=-L. -lTADitem -lTADlista -lTADsite -lopcoes -luteis -lsites_file
+libs=src/TADitem.o src/TADlista.o src/TADsite.o src/opcoes.o src/uteis.o src/sites_file.o
 
 source=src/opcoes.c src/sites_file.c src/TADitem.c src/TADlista.c src/TADsite.c src/uteis.c main.c
 
@@ -10,14 +10,8 @@ all:
 	gcc -c src/uteis.c -o src/uteis.o -I./include
 	gcc -c src/sites_file.c -o src/sites_file.o -I./include
 
-	ar rcs libTADitem.a src/TADitem.o
-	ar rcs libTADlista.a src/TADlista.o
-	ar rcs libTADsite.a src/TADsite.o
-	ar rcs libopcoes.a src/opcoes.o
-	ar rcs libuteis.a src/uteis.o
-	ar rcs libsites_file.a src/sites_file.o
 
-	gcc -o executavel main.c $(libs) -I./include
+	gcc -o executavel main.c $(libs) -I./include -Wall -Werror -Wextra -std=c99
 
 run:
 	./executavel

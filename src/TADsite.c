@@ -2,8 +2,8 @@
 #include<string.h>
 #include<stdio.h>
 
-#include<TADsite.h>
-#include<uteis.h>
+#include"TADsite.h"
+#include"uteis.h"
 
 struct site_t {
     char nome[50];

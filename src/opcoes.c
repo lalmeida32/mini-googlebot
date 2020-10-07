@@ -1,9 +1,9 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-#include<uteis.h>
-#include<TADlista.h>
-#include<TADsite.h>
+#include"uteis.h"
+#include"TADlista.h"
+#include"TADsite.h"
 
 // Função para inserir a partir da entrada padrão (stdin) novo site em uma lista de sites
 void inserir_site(LISTA *lista_de_sites) {
