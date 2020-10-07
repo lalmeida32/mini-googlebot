@@ -81,11 +81,12 @@ LISTA *recebe_dados(FILE *arquivo, int num_sites){
         free(dados_site);
     }
     return lista;
-}  
+}
 
-
+// Função que recebe grava os dados de uma lista de sites em um arquivo
 boolean gravar_dados(const char* filename_saida, LISTA *lista_de_sites) {
     
+    // arquivo de saída e vetor de itens criados
     FILE *arquivo_de_saida = fopen(filename_saida, "w");
     if (!arquivo_de_saida) return FALSE;
 
@@ -95,6 +96,7 @@ boolean gravar_dados(const char* filename_saida, LISTA *lista_de_sites) {
         return FALSE;
     }
 
+    // cada um dos sites sendo impressos no arquivo de saída
     const int tamanho_da_lista = lista_tamanho(lista_de_sites); 
 
     for (int i = 0; i < tamanho_da_lista; i++) {
@@ -104,7 +106,7 @@ boolean gravar_dados(const char* filename_saida, LISTA *lista_de_sites) {
             fprintf(arquivo_de_saida, "\n");
     }
 
-
+    // liberação de memória e retorno
     fclose(arquivo_de_saida);
     free(vetor);
     return TRUE;
