@@ -125,13 +125,11 @@ void site_read_palavra_chave(SITE *site, FILE *input) {
     site_add_palavra_chave(site, buffer_string); free(buffer_string);
 }
 
-void site_imprimir(SITE *site) {
-    printf("Nome: %s\n", site->nome);
-    printf("Relevância: %d\n", site->relevancia);
-    printf("Link: %s\n", site->link);
-    printf("Palavras-chave: ");
+void site_imprimir(SITE *site, FILE *output) {
+    fprintf(output, ",%s", site->nome);
+    fprintf(output, ",%d", site->relevancia);
+    fprintf(output, ",%s", site->link);
     for (int i = 0; i < site->contador_de_palavras_chave; i++)
-        printf("%s; ", site->palavras_chave[i]);
-    
-    printf("\n\n");
+        fprintf(output, ",%s", site->palavras_chave[i]);
+    fprintf(output, "\n");
 }
