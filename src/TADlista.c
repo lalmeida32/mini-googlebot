@@ -204,15 +204,15 @@ void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo))
     }
 }
 
-int *lista_converter_para_vetor(LISTA *lista) {
+ITEM **lista_converter_para_vetor(LISTA *lista) {
     if (!lista || lista_vazia(lista)) return NULL;
     
-    int *vetor = (int *) malloc(lista_tamanho(lista) * sizeof(int));
+    ITEM **vetor = (ITEM **) malloc(lista_tamanho(lista) * sizeof(ITEM *));
     if (!vetor) return NULL;
 
     NO *aux = lista->inicio;
     for (int i = 0; i < lista_tamanho(lista); i++) {
-        vetor[i] = item_get_chave(aux->item);
+        vetor[i] = aux->item;
         aux = aux->proximo;
     }
 

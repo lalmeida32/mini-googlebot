@@ -87,6 +87,12 @@ boolean lista_remover(LISTA *lista, int chave, void (*apagar_conteudo)(void **co
 //    -> void
 void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo));
 
-int *lista_converter_para_vetor(LISTA *lista);
+//converte a lista em um vetor e retorna esse vetor (alocado na memória heap)
+// - Parâmetros
+//    -> lista a ser convertida
+// - Retorno
+//    -> caso algo tenha dado errado no processo,
+//    -> caso contrário, vetor contendo os itens da lista
+ITEM **lista_converter_para_vetor(LISTA *lista);
 
 #endif
