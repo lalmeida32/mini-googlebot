@@ -55,7 +55,9 @@ void inserir_site(LISTA *lista_de_sites) {
         }
         free(palavra_chave);
     } while (continuar != -1 && contador_de_palavras_chave < site_get_palavras_chave_max_count());
-    printf("Voce ja atingiu o limite de palavras chave para esse site\n");
+
+    if (contador_de_palavras_chave == site_get_palavras_chave_max_count())
+        printf("Voce ja atingiu o limite de palavras chave para esse site\n");
 
     // acrescentando o link à lista e verificando se foi mesmo possível adicioná-lo
     if (lista_inserir(lista_de_sites, novo_item)) {
@@ -122,7 +124,8 @@ void inserir_palavra_chave(LISTA *lista_de_sites) {
                 }
                 free(palavra_chave);
             } while (continuar != -1 && contador_de_palavras_chave < site_get_palavras_chave_max_count());
-            printf("Voce ja atingiu o limite de palavras chave para esse site\n");
+            if (contador_de_palavras_chave == site_get_palavras_chave_max_count())
+                printf("Voce ja atingiu o limite de palavras chave para esse site\n");
         }
         else
             printf("Voce ja atingiu o limite de palavras chave para esse site\n");
