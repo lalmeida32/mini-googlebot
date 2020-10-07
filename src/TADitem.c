@@ -1,7 +1,7 @@
 #include<stdlib.h>
 #include<stdio.h>
 
-#include<TADitem.h>
+#include"TADitem.h"
 
 // chave: identificador
 // conteudo: ponteiro para o conteúdo do item
