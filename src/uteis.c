@@ -1,6 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+// Copia string até max_length ser atingido ou até '\0' no source
+void set_string(char *destination, const char *source, int max_length)
+{
+    strncpy(destination, source, max_length);
+    destination[max_length - 1] = '\0';
+}
+
 // Limpa o arquivo até '\n' ou fim de arquivo
 void flush(FILE *input) {
     char c;

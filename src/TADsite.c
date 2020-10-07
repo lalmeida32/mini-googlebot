@@ -14,13 +14,6 @@ struct site_t {
 };
 
 
-
-void site_set_string(char *destination, const char *source, int max_length) {
-    strncpy(destination, source, max_length);
-    destination[max_length - 1] = '\0';
-}
-
-
 int site_get_nome_max_length() {
     return sizeof(((SITE *) NULL)->nome);
 }
@@ -37,6 +30,7 @@ int site_get_palavras_chave_max_count() {
     return sizeof(((SITE *)NULL)->palavras_chave) / site_get_palavra_chave_max_length();
 }
 
+// Cria a estrutura site na memória HEAP
 SITE *site_criar() {
     SITE *site = (SITE *) malloc(sizeof(SITE));
     if (!site) return NULL;
@@ -49,6 +43,7 @@ SITE *site_criar() {
     return site;
 }
 
+// Desaloca a memória HEAP alocada pelo site
 void site_apagar(SITE **site) {
 
     if (!(*site)) return;
@@ -62,7 +57,7 @@ boolean site_set_nome(SITE *site, const char *nome) {
     
     if (!site || !nome) return FALSE;
 
-    site_set_string(site->nome, nome, site_get_nome_max_length());
+    set_string(site->nome, nome, site_get_nome_max_length());
 
     return TRUE;
 }
@@ -80,7 +75,7 @@ boolean site_set_link(SITE *site, const char *link) {
 
     if (!site || !link) return FALSE;
 
-    site_set_string(site->link, link, site_get_link_max_length());
+    set_string(site->link, link, site_get_link_max_length());
     
     return TRUE;
 }
@@ -91,7 +86,7 @@ boolean site_add_palavra_chave(SITE *site, const char *palavra_chave) {
     
     if (site->contador_de_palavras_chave >= site_get_palavras_chave_max_count()) return FALSE;
 
-    site_set_string(site->palavras_chave[site->contador_de_palavras_chave], palavra_chave, site_get_palavra_chave_max_length());
+    set_string(site->palavras_chave[site->contador_de_palavras_chave], palavra_chave, site_get_palavra_chave_max_length());
     site->contador_de_palavras_chave++;
 
     return TRUE;
