@@ -108,7 +108,7 @@ void inserir_palavra_chave(LISTA *lista_de_sites) {
         //obtendo a quantidade de chaves do site
         contador_de_palavras_chave = site_get_num_palavras_chave(item_get_conteudo(item));
 
-        if(contador_de_palavras_chave < 10){
+        if (contador_de_palavras_chave < site_get_palavras_chave_max_count()) {
             // adicionando n palavras chave, até o máximo ser atingido ou até o usuário digitar algo diferente de '0'
             printf("Digite '-1' quando quiser parar de adicionar palavras-chave.\n");
             do {
