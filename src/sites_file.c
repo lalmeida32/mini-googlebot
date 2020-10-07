@@ -90,24 +90,10 @@ boolean gravar_dados(const char* filename_saida, LISTA *lista_de_sites) {
     FILE *arquivo_de_saida = fopen(filename_saida, "w");
     if (!arquivo_de_saida) return FALSE;
 
-    ITEM **vetor = lista_converter_para_vetor(lista_de_sites);
-    if (!vetor) {
-        fclose(arquivo_de_saida);
-        return FALSE;
-    }
-
     // cada um dos sites sendo impressos no arquivo de saída
-    const int tamanho_da_lista = lista_tamanho(lista_de_sites); 
-
-    for (int i = 0; i < tamanho_da_lista; i++) {
-        fprintf(arquivo_de_saida, "%04d,", item_get_chave(vetor[i]));
-        site_imprimir(item_get_conteudo(vetor[i]), arquivo_de_saida);
-        if (i + 1 < tamanho_da_lista)
-            fprintf(arquivo_de_saida, "\n");
-    }
+    lista_imprimir_conteudo(lista_de_sites, arquivo_de_saida, &site_imprimir, "%d,");
 
     // liberação de memória e retorno
     fclose(arquivo_de_saida);
-    free(vetor);
     return TRUE;
 }

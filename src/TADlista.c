@@ -73,19 +73,6 @@ int lista_tamanho(LISTA *lista){
     return(lista->tamanho);
 }
 
-void lista_imprimir(LISTA *lista){
-     NO *p;
-     if (lista != NULL){
-        p = lista->inicio;
-        printf("\n");
-        while(p != NULL){
-            printf("[%d]; ", item_get_chave(p->item));
-            p = p->proximo;
-        } 
-     }
-     return;
-}
-
 //Insere um novo no de maneira ordenada na lista.
 boolean lista_inserir(LISTA *lista, ITEM *item){
 
@@ -185,7 +172,7 @@ boolean lista_remover(LISTA *lista, int chave, void (*apagar_conteudo)(void **co
     return(FALSE);
 }
 
-void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo))
+void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **))
 {
     NO *aux = NULL;
 
@@ -204,17 +191,32 @@ void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo))
     }
 }
 
-ITEM **lista_converter_para_vetor(LISTA *lista) {
-    if (!lista || lista_vazia(lista)) return NULL;
-    
-    ITEM **vetor = (ITEM **) malloc(lista_tamanho(lista) * sizeof(ITEM *));
-    if (!vetor) return NULL;
+void lista_imprimir(LISTA *lista)
+{
+    NO *p;
+    if (lista != NULL)
+    {
+        p = lista->inicio;
+        printf("\n");
+        while (p != NULL)
+        {
+            printf("[%d]; ", item_get_chave(p->item));
+            p = p->proximo;
+        }
+    }
+    return;
+}
+
+void lista_imprimir_conteudo(LISTA *lista, FILE *output, void (*imprimir_conteudo)(void *, FILE *), const char *format)
+{
+    if (!lista || lista_vazia(lista) || !output || !imprimir_conteudo) return;
 
     NO *aux = lista->inicio;
-    for (int i = 0; i < lista_tamanho(lista); i++) {
-        vetor[i] = aux->item;
+    while (aux) {
+        if (format) fprintf(output, format, item_get_chave(aux->item));
+        else fprintf(output, "%d", item_get_chave(aux->item));
+        imprimir_conteudo(item_get_conteudo(aux->item), output);
+        if (aux->proximo) fprintf(output, "\n");
         aux = aux->proximo;
     }
-
-    return vetor;
 }

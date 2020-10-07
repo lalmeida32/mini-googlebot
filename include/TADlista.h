@@ -87,12 +87,13 @@ boolean lista_remover(LISTA *lista, int chave, void (*apagar_conteudo)(void **co
 //    -> void
 void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo));
 
-//converte a lista em um vetor e retorna esse vetor (alocado na memória heap)
+// imprime a chave e o conteudo de cada um dos itens da lista em um arquivo
 // - Parâmetros
-//    -> lista a ser convertida
+//    -> lista: lista a ser impressa
+//    -> output: arquivo onde a lista será impressa
+//    -> imprimir_conteudo: ponteiro para função que imprimirá o conteúdo do item
 // - Retorno
-//    -> caso algo tenha dado errado no processo,
-//    -> caso contrário, vetor contendo os itens da lista
-ITEM **lista_converter_para_vetor(LISTA *lista);
+//    -> não tem
+void lista_imprimir_conteudo(LISTA *lista, FILE *output, void (*imprimir_conteudo)(void *, FILE *), const char *format);
 
 #endif
