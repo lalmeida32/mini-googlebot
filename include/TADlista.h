@@ -87,4 +87,6 @@ boolean lista_remover(LISTA *lista, int chave, void (*apagar_conteudo)(void **co
 //    -> void
 void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo));
 
+int *lista_converter_para_vetor(LISTA *lista);
+
 #endif
