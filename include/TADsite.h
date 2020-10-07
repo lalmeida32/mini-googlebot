@@ -28,6 +28,6 @@
     void site_read_link(SITE *site, FILE *input);
     void site_read_palavra_chave(SITE *site, FILE *input);
 
-    void site_imprimir(SITE *site);
+    void site_imprimir(SITE *site, FILE *output);
 
 #endif
