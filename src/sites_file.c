@@ -89,15 +89,15 @@ boolean gravar_dados(const char* filename_saida, LISTA *lista_de_sites) {
     FILE *arquivo_de_saida = fopen(filename_saida, "w");
     if (!arquivo_de_saida) return FALSE;
 
-    int *vetor = lista_converter_para_vetor(lista_de_sites);
+    ITEM **vetor = lista_converter_para_vetor(lista_de_sites);
     if (!vetor) {
         fclose(arquivo_de_saida);
         return FALSE;
     }
 
     for (int i = 0; i < lista_tamanho(lista_de_sites); i++) {
-        fprintf(arquivo_de_saida, "%04d,", vetor[i]);
-        site_imprimir(item_get_conteudo(lista_busca(lista_de_sites, vetor[i])), arquivo_de_saida);
+        fprintf(arquivo_de_saida, "%04d,", item_get_chave(vetor[i]));
+        site_imprimir(item_get_conteudo(vetor[i]), arquivo_de_saida);
     }
 
 
