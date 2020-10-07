@@ -92,6 +92,7 @@ void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo));
 //    -> lista: lista a ser impressa
 //    -> output: arquivo onde a lista será impressa
 //    -> imprimir_conteudo: ponteiro para função que imprimirá o conteúdo do item
+//    -> format: formato usado para imprimir a chave do item
 // - Retorno
 //    -> não tem
 void lista_imprimir_conteudo(LISTA *lista, FILE *output, void (*imprimir_conteudo)(void *, FILE *), const char *format);
