@@ -19,6 +19,12 @@
     //      funcao retorna a lista com todos os sites
     LISTA *recebe_dados(FILE *arquivo, int num_sites);
 
+    //funcao que recebe grava os dados de uma lista de sites em um arquivo
+    // - Parâmetros
+    //    -> arquivo: o nome do arquivo onde os dados serão gravados
+    //    -> lista_de_sites: lista contendo todos os sites no programa
+    // - Retorno
+    //      TRUE caso os dados tenham sido gravados com sucesso e FALSE caso contrário
     boolean gravar_dados(const char *filename_saida, LISTA *lista_de_sites);
 
 #endif
