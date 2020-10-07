@@ -19,4 +19,6 @@
     //      funcao retorna a lista com todos os sites
     LISTA *recebe_dados(FILE *arquivo, int num_sites);
 
+    boolean gravar_dados(const char *filename_saida, LISTA *lista_de_sites);
+
 #endif
