@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 // Copia string até max_length ser atingido ou até '\0' no source
 void set_string(char *destination, const char *source, int max_length)
