@@ -108,7 +108,7 @@ void inserir_palavra_chave(LISTA *lista_de_sites) {
             printf("Voce ja atingiu o limite de palavras chave para esse site\n");
     }
     else
-        printf("Site nao encontrado");
+        printf("Site nao encontrado\n");
 
 }
 
@@ -125,7 +125,7 @@ void atualizar_relevancia(LISTA *lista_de_sites) {
         site_read_relevancia(item_get_conteudo(item), stdin);
     }
     else
-        printf("Site nao encontrado");
+        printf("Site nao encontrado\n");
 
 }
 

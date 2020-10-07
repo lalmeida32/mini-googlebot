@@ -20,10 +20,10 @@ int main(void) {
 
     lista_de_sites = recebe_dados(fp, num_sites);
     
-    // do {
-    //     scanf("%d", &opcao);
-    //     chamar_opcao(lista_de_sites, opcao);
-    // } while(opcao != 5);
+    do {
+        scanf("%d", &opcao);
+        chamar_opcao(lista_de_sites, opcao);
+    } while(opcao != 5);
 
     lista_imprimir(lista_de_sites); printf("\n\n");
 
