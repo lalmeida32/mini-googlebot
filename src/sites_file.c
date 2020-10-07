@@ -6,7 +6,7 @@
 #include "TADsite.h"
 #include "sites_file.h"
 
-
+//funcao que le a linha de um arquivo ate encontrar o \n ou o fim do arquivo
 char *readline(FILE *stream) {
     char *string = (char *) malloc(700);
     int pos = 0;
@@ -19,6 +19,8 @@ char *readline(FILE *stream) {
     return string;
 }
 
+
+//conta quantos sites tem no arquivo googlebot.txt
 int conta_sites(FILE *arquivo){
     int num_sites = 1;
 
@@ -91,7 +93,7 @@ boolean gravar_dados(const char* filename_saida, LISTA *lista_de_sites) {
     if (!arquivo_de_saida) return FALSE;
 
     // cada um dos sites sendo impressos no arquivo de saída
-    lista_imprimir_conteudo(lista_de_sites, arquivo_de_saida, &site_imprimir, "%d,");
+    lista_imprimir_conteudo(lista_de_sites, arquivo_de_saida, (void *) &site_imprimir, "%d,");
 
     // liberação de memória e retorno
     fclose(arquivo_de_saida);

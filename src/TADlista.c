@@ -19,20 +19,7 @@ struct lista_{
 };
 
 
-
-NO *no_criar(ITEM *item){
-   NO *n = (NO *) malloc(sizeof(NO));
-      
-   if ((n != NULL) && (item != NULL)){
-      n->item = item;
-      n->proximo = NULL;
-      return(n);
-   }
-   else
-       return(NULL);
-}
-
-
+//cria uma lista na heap
 LISTA *lista_criar(void){
           
     LISTA *lista = (LISTA *) malloc(sizeof(LISTA));
@@ -45,18 +32,18 @@ LISTA *lista_criar(void){
    return (lista);
 }
 
-  
+//verifica se a lista esta vazia
 boolean lista_vazia(LISTA *lista){
     if((lista != NULL) && lista->inicio == NULL)
         return(TRUE);
     return(FALSE);
 }
 
-
+//verifica se uma lista esta cheia
 boolean lista_cheia(LISTA *lista){
     if((lista != NULL) && lista->fim != NULL){
         NO *no = (NO *) malloc(sizeof(NO));
-        //se conseguirmos criar esse no, entao ainda tem memoria, 
+        //se conseguirmos alocar esse no, entao ainda tem memoria, 
         //logo a lista ainda nao esta cheia
         if (no != NULL){
             free(no);
@@ -69,20 +56,21 @@ boolean lista_cheia(LISTA *lista){
         return(FALSE);
 }
 
+//verifica o tamanho da lista
 int lista_tamanho(LISTA *lista){
     return(lista->tamanho);
 }
 
 //Insere um novo no de maneira ordenada na lista.
 boolean lista_inserir(LISTA *lista, ITEM *item){
-
+    //se a lista n estiver cheia e se ela existir, inserimos o item na lista
     if((!lista_cheia(lista)) && (lista != NULL)){
         int key = 0;
         NO *pnovo = (NO *) malloc(sizeof (NO));
         NO *aux = NULL;
         NO *p = NULL;
         
-        if(lista->inicio == NULL){
+        if(lista->inicio == NULL){//se a lista estiver vazia
             pnovo->item = item;
             lista->inicio = pnovo;
             pnovo->proximo = NULL;
@@ -92,12 +80,12 @@ boolean lista_inserir(LISTA *lista, ITEM *item){
             aux = lista->inicio;
             key = item_get_chave(item);
 
-            if(key < item_get_chave(aux->item)){//o novo item que esta sendo eh menor que o inicio da lista
+            if(key < item_get_chave(aux->item)){//o novo item que esta sendo inserido eh menor que o do inicio da lista
                 pnovo->item = item;
                 lista->inicio = pnovo;
                 pnovo->proximo = aux;
             }
-            else if(key > item_get_chave(lista->fim->item)){//item deve ser inserido no fim
+            else if(key > item_get_chave(lista->fim->item)){//o novo item que esta sendo inserido eh maior que o do fim da lista
                     lista->fim->proximo = pnovo;
                     pnovo->item = item;
                     pnovo -> proximo = NULL;
@@ -114,7 +102,7 @@ boolean lista_inserir(LISTA *lista, ITEM *item){
             }
         }
         lista->tamanho++;
-        return (TRUE);
+        return (TRUE);//insercao concluida
     }
     else
         return (FALSE);
@@ -172,8 +160,8 @@ boolean lista_remover(LISTA *lista, int chave, void (*apagar_conteudo)(void **co
     return(FALSE);
 }
 
-void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **))
-{
+//funcao que apaga toda a lista
+void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **)){
     NO *aux = NULL;
 
     if( ((*lista) != NULL) && (!lista_vazia(*lista)) ){
@@ -191,8 +179,8 @@ void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **))
     }
 }
 
-void lista_imprimir(LISTA *lista)
-{
+//funcao que percorre a lista imprimindo a chave de cada item presente nela
+void lista_imprimir(LISTA *lista){
     NO *p;
     if (lista != NULL)
     {
