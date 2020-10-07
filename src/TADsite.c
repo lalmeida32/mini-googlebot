@@ -131,5 +131,4 @@ void site_imprimir(SITE *site, FILE *output) {
     fprintf(output, ",%s", site->link);
     for (int i = 0; i < site->contador_de_palavras_chave; i++)
         fprintf(output, ",%s", site->palavras_chave[i]);
-    fprintf(output, "\n");
 }
