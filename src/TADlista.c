@@ -73,19 +73,6 @@ int lista_tamanho(LISTA *lista){
     return(lista->tamanho);
 }
 
-void lista_imprimir(LISTA *lista){
-     NO *p;
-     if (lista != NULL){
-        p = lista->inicio;
-        printf("\n");
-        while(p != NULL){
-            printf("[%d]; ", item_get_chave(p->item));
-            p = p->proximo;
-        } 
-     }
-     return;
-}
-
 //Insere um novo no de maneira ordenada na lista.
 boolean lista_inserir(LISTA *lista, ITEM *item){
 
@@ -185,7 +172,7 @@ boolean lista_remover(LISTA *lista, int chave, void (*apagar_conteudo)(void **co
     return(FALSE);
 }
 
-void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo))
+void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **))
 {
     NO *aux = NULL;
 
@@ -201,5 +188,45 @@ void lista_apagar(LISTA **lista, void (*apagar_conteudo)(void **conteudo))
         }
         free(*lista);
         (*lista) = NULL;
+    }
+}
+
+void lista_imprimir(LISTA *lista)
+{
+    NO *p;
+    if (lista != NULL)
+    {
+        p = lista->inicio;
+        printf("\n");
+        while (p != NULL)
+        {
+            printf("[%d]; ", item_get_chave(p->item));
+            p = p->proximo;
+        }
+    }
+    return;
+}
+
+// imprime a chave e o conteudo de cada um dos itens da lista em um arquivo
+void lista_imprimir_conteudo(LISTA *lista, FILE *output, void (*imprimir_conteudo)(void *, FILE *), const char *format)
+{
+    // Exceções
+    if (!lista || lista_vazia(lista) || !output || !imprimir_conteudo) return;
+
+    // imprimir cada um dos itens na lista 
+    NO *aux = lista->inicio;
+    while (aux) {
+
+        // imprime a chave
+        // se o formato não for passado, usará "%d"
+        if (format) fprintf(output, format, item_get_chave(aux->item));
+        else fprintf(output, "%d", item_get_chave(aux->item));
+
+        // imprime o conteúdo e um '\n' caso não seja o último item
+        imprimir_conteudo(item_get_conteudo(aux->item), output);
+        if (aux->proximo) fprintf(output, "\n");
+
+        // próximo item
+        aux = aux->proximo;
     }
 }

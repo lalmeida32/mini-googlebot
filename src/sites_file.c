@@ -81,9 +81,19 @@ LISTA *recebe_dados(FILE *arquivo, int num_sites){
         free(dados_site);
     }
     return lista;
-}  
+}
 
+// Função que recebe grava os dados de uma lista de sites em um arquivo
+boolean gravar_dados(const char* filename_saida, LISTA *lista_de_sites) {
+    
+    // arquivo de saída e vetor de itens criados
+    FILE *arquivo_de_saida = fopen(filename_saida, "w");
+    if (!arquivo_de_saida) return FALSE;
 
+    // cada um dos sites sendo impressos no arquivo de saída
+    lista_imprimir_conteudo(lista_de_sites, arquivo_de_saida, &site_imprimir, "%d,");
 
-
-
+    // liberação de memória e retorno
+    fclose(arquivo_de_saida);
+    return TRUE;
+}
