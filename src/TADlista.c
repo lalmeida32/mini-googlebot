@@ -117,8 +117,9 @@ ITEM *lista_busca(LISTA *lista, int chave){
         aux = lista->inicio;
 
         while(aux != NULL){
-            if(item_get_chave(aux->item) == chave)
-                return (aux->item);
+            const int chave_atual = item_get_chave(aux->item);
+            if (chave_atual == chave) return (aux->item);
+            else if (chave_atual > chave) return NULL;
             aux = aux->proximo;
         }
     }
