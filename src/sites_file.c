@@ -91,7 +91,7 @@ boolean gravar_dados(const char* filename_saida, LISTA *lista_de_sites) {
     if (!arquivo_de_saida) return FALSE;
 
     // cada um dos sites sendo impressos no arquivo de saída
-    lista_imprimir_conteudo(lista_de_sites, arquivo_de_saida, &site_imprimir, "%d,");
+    lista_imprimir_conteudo(lista_de_sites, arquivo_de_saida, (void (*) (void *, FILE *)) &site_imprimir, "%d,");
 
     // liberação de memória e retorno
     fclose(arquivo_de_saida);
