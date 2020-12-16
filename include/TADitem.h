@@ -25,7 +25,7 @@
     //    -> item: endereço da estrutura item a ser apagada
     //    -> apagar_conteudo: ponteiro para função que apaga conteúdo do item
     // - Retorno
-    //    -> conteúdo do item, NULL se der erro
+    //    void
     void item_apagar(ITEM **item, void (*apagar_conteudo) (void **conteudo));
 
 
