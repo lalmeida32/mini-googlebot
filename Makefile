@@ -1,9 +1,11 @@
-objs=obj/TADitem.o obj/TADlista.o obj/TADsite.o obj/opcoes.o obj/uteis.o obj/sites_file.o
+objs=obj/TADitem.o obj/TADlista.o obj/TADsite.o obj/opcoes.o obj/uteis.o obj/sites_file.o obj/TADpriorityqueue.o obj/TADavl.o
 
 all:
 	gcc -c src/TADitem.c -o obj/TADitem.o -I./include
 	gcc -c src/TADlista.c -o obj/TADlista.o -I./include
 	gcc -c src/TADsite.c -o obj/TADsite.o -I./include
+	gcc -c src/TADpriorityqueue.c -o obj/TADpriorityqueue.o -I./include
+	gcc -c src/TADavl.c -o obj/TADavl.o -I./include
 	gcc -c src/opcoes.c -o obj/opcoes.o -I./include
 	gcc -c src/uteis.c -o obj/uteis.o -I./include
 	gcc -c src/sites_file.c -o obj/sites_file.o -I./include

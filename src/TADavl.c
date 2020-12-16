@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "avl.h"
+#include <TADavl.h>
 
 typedef struct avl_no AVL_NO;
 struct avl_no{

@@ -1,7 +1,6 @@
 #ifndef AVL_H
     #define AVL_H
 
-    #include "item.h"
     #define boolean int
     #define TRUE 1
     #define FALSE 0
