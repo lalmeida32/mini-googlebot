@@ -38,16 +38,14 @@ int main(void) {
     FILE *fp;
     int num_sites, opcao;
     LISTA *lista_de_sites = NULL;
+    AVL *avl_de_palavras_chave = NULL;
 
     // abrir lista de sites a partir de arquivo
     fp = fopen(INPUT_FILE_NAME, "r");
     num_sites = conta_sites(fp);
-    lista_de_sites = recebe_dados(fp, num_sites);
+    recebe_dados(fp, num_sites, &lista_de_sites, &avl_de_palavras_chave);
     fclose(fp);
 
-    AVL *avl_de_palavras_chave = avl_criar();
-    avl_set_dados_comparar(avl_de_palavras_chave, &pchave_ref_comparar);
-    avl_set_dados_apagar(avl_de_palavras_chave, &pchave_ref_apagar);
 
     // laço para as opções
     printf("Bem-vindo ao mini-googlebot!\n");

@@ -15,6 +15,7 @@
     void avl_set_dados_apagar(AVL *avl, void (*dados_apagar)(void **));
     void avl_set_dados_comparar(AVL *avl, int (*dados_comparar)(void *, void *));
     void avl_set_dados_imprimir(AVL *avl, void (*dados_imprimir)(void *));
+    void *avl_busca(AVL *avl, void *chave);
 
 
 #endif
