@@ -158,3 +158,12 @@ void site_imprimir(SITE *site, FILE *output) {
     for (int i = 0; i < site->contador_de_palavras_chave; i++) // passsa por todas as palavras-chave
         fprintf(output, ",%s", site->palavras_chave[i]);
 }
+
+
+
+int site_comparar_relevancia(void *dados1, void *dados2) {
+    SITE *site1 = (SITE *) dados1;
+    SITE *site2 = (SITE *) dados2;
+
+    return site1->relevancia - site2->relevancia;
+}

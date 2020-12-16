@@ -137,5 +137,7 @@
     void site_imprimir(SITE *site, FILE *output);
 
 
+    int site_comparar_relevancia(void *dados1, void *dados2);
+
 
 #endif

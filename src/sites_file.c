@@ -6,7 +6,9 @@
 #include "TADsite.h"
 #include "TADavl.h"
 #include "TADpriorityqueue.h"
+#include "TADpchave.h"
 #include "sites_file.h"
+
 
 //funcao que le a linha de um arquivo ate encontrar o \n ou o fim do arquivo
 char *readline(FILE *stream) {
@@ -71,10 +73,13 @@ void recebe_dados(FILE *arquivo, int num_sites, LISTA **lista_de_sites, AVL **av
     char *dados_site;
     int i = 0;
     ITEM *item;
+
     LISTA *lista = lista_criar();
     AVL *avl = avl_criar();
-    // avl_set_dados_comparar(avl, &palavras_chave_ref_comparar);
-    // avl_set_dados_apagar(avl, &palavra_chave_ref_apagar);
+
+    avl_set_dados_comparar(avl, &pchave_ref_comparar);
+    avl_set_dados_apagar(avl, &pchave_ref_apagar);
+    avl_set_dados_imprimir(avl, &pchave_ref_imprimr);
 
     //posicionando o cursor no inicio do arquivo
     fseek(arquivo, 0, SEEK_SET);
@@ -85,13 +90,33 @@ void recebe_dados(FILE *arquivo, int num_sites, LISTA **lista_de_sites, AVL **av
         item = separa_dados(dados_site);
         free(dados_site);
         
+        // Inserindo item contendo chave na lista
         lista_inserir(lista, item);
         
+        // Se palavra-chave não existir, cria PALAVRA_CHAVE_REF e colocar o site em questão na PQUEUE de sites relacionados
+        // Se existir, adicionar site na PQUEUE de sites relacionados na PALAVRA_CHAVE_REF 
         SITE *site = (SITE *) item_get_conteudo(item);
         for (int j = 0; j < site_get_num_palavras_chave(site); j++) {
             char *palavra_chave = site_get_palavra_chave(site, j);
-            // PALAVRA_CHAVE_REF *pchave_ref_chave = pchave_criar
+            PALAVRA_CHAVE_REF *pchave_ref_temporaria = pchave_ref_criar(palavra_chave, NULL);
+            PALAVRA_CHAVE_REF *pchave_ref_encontrada = avl_busca(avl, pchave_ref_temporaria);
+            pchave_ref_apagar((void **) &pchave_ref_temporaria);
 
+            // encontrou na árvore a palavra-chave buscada
+            if (pchave_ref_encontrada)
+                
+                // insere site na pqueue da palavra chave 
+                pqueue_inserir(pchave_get_sites_relacionados(pchave_ref_encontrada), site);
+            
+            // não encontrou
+            else {
+                PQUEUE *pqueue_de_sites = pqueue_criar();
+                pqueue_set_dados_comparar(pqueue_de_sites, &site_comparar_relevancia);
+                pqueue_inserir(pqueue_de_sites, site);
+                PALAVRA_CHAVE_REF *pchave_ref = pchave_ref_criar(palavra_chave, pqueue_de_sites);
+                avl_inserir(avl, pchave_ref);
+            }
+            
         }
 
         i++;

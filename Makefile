@@ -26,3 +26,6 @@ clean:
 
 zip:
 	zip -r mini-googlebot.zip src/*.c include/*.h ./googlebot.txt ./Makefile ./main.c ./README.md ./obj
+
+valgrind:
+	valgrind ./executavel --leak-check=full

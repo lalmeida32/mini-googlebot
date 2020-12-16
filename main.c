@@ -14,25 +14,6 @@
 #define INPUT_FILE_NAME "googlebot.txt"
 #define OUTPUT_FILE_NAME "googlebot_out.txt"
 
-// typedef struct {
-//     char *palavra_chave;
-//     PQUEUE *sites_relacionados;  
-// } PALAVRA_CHAVE_REF;
-
-// int palavras_chave_ref_comparar(void *dados1, void *dados2) {
-//     PALAVRA_CHAVE_REF *pchave_ref1 = (PALAVRA_CHAVE_REF *) dados1;
-//     PALAVRA_CHAVE_REF *pchave_ref2 = (PALAVRA_CHAVE_REF *) dados2;
-
-//     return strcmp(pchave_ref1->palavra_chave, pchave_ref2->palavra_chave);
-// }
-
-// void palavra_chave_ref_apagar(void **dados) {
-//     if (!dados || !(*dados)) return;
-
-//     free(*dados);
-//     *dados = NULL;
-// }
-
 // Laço principal
 int main(void) {
     FILE *fp;
@@ -46,6 +27,7 @@ int main(void) {
     recebe_dados(fp, num_sites, &lista_de_sites, &avl_de_palavras_chave);
     fclose(fp);
 
+    avl_print(avl_de_palavras_chave);
 
     // laço para as opções
     printf("Bem-vindo ao mini-googlebot!\n");
@@ -71,7 +53,7 @@ int main(void) {
 
     // liberação de memória
     avl_apagar(&avl_de_palavras_chave);
-    lista_apagar(&lista_de_sites, (void (*)(void **)) & site_apagar);
+    lista_apagar(&lista_de_sites, (void (*)(void **)) &site_apagar);
 
     return 0;
 }
