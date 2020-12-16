@@ -38,15 +38,14 @@
     // - Retorno
     //    -> retorna a palavra chave caso o parametro nao seja NULL, se for retorna NULL
     char *pchave_get_palavra_chave(PALAVRA_CHAVE_REF *pchave);
-    PQUEUE *pchave_get_sites_relacionados(PALAVRA_CHAVE_REF *pchave);
-    void pchave_ref_imprimr(void *dados);
 
     // Recupera os sites relacioandas a palavra chave
     // - Parâmetros
     //    -> pchave: palavra chave de interesse 
     // - Retorno
     //    -> retorna um ponteiro para a fila de prioridade de sites o parametro nao seja NULL, se for retorna NULL
-    PQUEUE *pchave_get_sites_relacionado(PALAVRA_CHAVE_REF *pchave);
+    PQUEUE *pchave_get_sites_relacionados(PALAVRA_CHAVE_REF *pchave);
 
+    void pchave_ref_imprimr(void *dados);
 
 #endif
