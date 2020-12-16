@@ -53,3 +53,4 @@ char *ler_string(int length, FILE *input)
 
     return string;
 }
+

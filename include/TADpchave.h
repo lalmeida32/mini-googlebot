@@ -2,6 +2,7 @@
     #define _PCHAVE_H_
 
     #include "TADpriorityqueue.h"
+    #include "TADavl.h"
     #include <string.h>
 
     typedef struct palavra_chave_ref PALAVRA_CHAVE_REF;
@@ -46,6 +47,10 @@
     //    -> retorna um ponteiro para a fila de prioridade de sites o parametro nao seja NULL, se for retorna NULL
     PQUEUE *pchave_get_sites_relacionados(PALAVRA_CHAVE_REF *pchave);
 
-    void pchave_ref_imprimr(void *dados);
+    void pchave_ref_imprimir(void *dados);
+
+    PALAVRA_CHAVE_REF *pchave_ref_busca_em_avl(AVL *avl_de_palavras_chave, char *palavra_chave);
+
+    void pchave_inserir_site_relacionado_em_avl(AVL *avl_de_palavras_chave, SITE *site);
 
 #endif

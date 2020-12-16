@@ -4,9 +4,12 @@
 #include"uteis.h"
 #include"TADlista.h"
 #include"TADsite.h"
+#include"TADavl.h"
+#include"TADpchave.h"
+#include"TADpriorityqueue.h"
 
 // Função para inserir a partir da entrada padrão (stdin) novo site em uma lista de sites
-void inserir_site(LISTA *lista_de_sites) {
+void inserir_site(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
     int chave;
 
     printf("Chave: "); chave = ler_integer(stdin);
@@ -53,6 +56,7 @@ void inserir_site(LISTA *lista_de_sites) {
             site_add_palavra_chave(item_get_conteudo(novo_item), palavra_chave);
             contador_de_palavras_chave++;
         }
+
         free(palavra_chave);
     } while (continuar != -1 && contador_de_palavras_chave < site_get_palavras_chave_max_count());
 
@@ -62,17 +66,21 @@ void inserir_site(LISTA *lista_de_sites) {
     // acrescentando o link à lista e verificando se foi mesmo possível adicioná-lo
     if (lista_inserir(lista_de_sites, novo_item)) {
         printf("Item inserido com sucesso!\n");
+        return;
     }
     else {
         printf("Ocorreu um erro ao inserir este item!\n");
         item_apagar(&novo_item, (void (*) (void **)) &site_apagar);
+        return;
     }
 
+    SITE *novo_site = (SITE *) item_get_conteudo(novo_item);
+    pchave_inserir_site_relacionado_em_avl(avl_de_palavras_chave, novo_site);
 
 }
 
 // Função que lẽ chave da entrada padrão (stdin) e o remove de uma lista de sites
-void remover_site(LISTA *lista_de_sites) {
+void remover_site(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
     int chave;
 
     printf("Chave: "); chave = ler_integer(stdin);
@@ -96,7 +104,7 @@ void remover_site(LISTA *lista_de_sites) {
 
 // Função que lê uma chave e n palavras-chave da entrada padrão (stdin) e insere essas
 // palavras-chave em determinado site em uma lista de sites
-void inserir_palavra_chave(LISTA *lista_de_sites) {
+void inserir_palavra_chave(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
     int chave, contador_de_palavras_chave, continuar;
     ITEM *item;
 
@@ -136,7 +144,7 @@ void inserir_palavra_chave(LISTA *lista_de_sites) {
 
 // Função que lê uma chave e um valor inteiro da entrada padrão (stdin)
 // e altera a relevância de um site em uma lista de sites
-void atualizar_relevancia(LISTA *lista_de_sites) {
+void atualizar_relevancia(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
     int chave;
     ITEM *item;
 
@@ -157,19 +165,19 @@ void atualizar_relevancia(LISTA *lista_de_sites) {
 }
 
 // Função que chama a função correta com base no parâmetro opção
-void chamar_opcao(LISTA *lista_de_sites, int opcao) {
+void chamar_opcao(LISTA *lista_de_sites, AVL *avl_de_palavras_chave, int opcao) {
     switch(opcao) {
         case 1:
-            inserir_site(lista_de_sites);
+            inserir_site(lista_de_sites, avl_de_palavras_chave);
             break;
         case 2:
-            remover_site(lista_de_sites);
+            remover_site(lista_de_sites, avl_de_palavras_chave);
             break;
         case 3:
-            inserir_palavra_chave(lista_de_sites);
+            inserir_palavra_chave(lista_de_sites, avl_de_palavras_chave);
             break;
         case 4:
-            atualizar_relevancia(lista_de_sites);
+            atualizar_relevancia(lista_de_sites, avl_de_palavras_chave);
             break;
         case 5:
             break;
