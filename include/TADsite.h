@@ -51,6 +51,9 @@
 
 
 
+    char *site_get_palavra_chave(SITE *site, int index);
+
+
 
     // Altera a propriedade "nome" de uma estrutura SITE
     // - Parâmetros
@@ -132,5 +135,7 @@
     // - Retorno
     //    -> não tem
     void site_imprimir(SITE *site, FILE *output);
+
+
 
 #endif

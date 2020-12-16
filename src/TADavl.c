@@ -173,6 +173,22 @@ void troca_max_esq(AVL_NO *troca, AVL_NO *raiz, AVL_NO *ant){
     troca = NULL;
 }
 
+void *avl_busca_aux(AVL_NO *raiz, void *chave, int (*dados_comparar) (void *, void *)) {
+    if (!raiz) return NULL;
+
+    if (dados_comparar(chave, raiz->dados) < 0)
+        return avl_busca_aux(raiz->filho_esquerdo, chave, dados_comparar);
+    if (dados_comparar(chave, raiz->dados) > 0)
+        return avl_busca_aux(raiz->filho_direito, chave, dados_comparar);
+    return raiz->dados;
+}
+
+void *avl_busca(AVL *avl, void *chave) {
+    if (!avl || !avl->dados_comparar) return NULL;
+
+    return avl_busca_aux(avl->raiz, chave, avl->dados_comparar);
+}
+
 AVL_NO *avl_remover_aux(AVL_NO **raiz, void *chave, void (*dados_apagar)(void **), int (*dados_comparar)(void *, void *)){
     AVL_NO *p;
     if(*raiz == NULL)

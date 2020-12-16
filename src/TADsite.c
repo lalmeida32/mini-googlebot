@@ -117,6 +117,12 @@ int site_get_num_palavras_chave(SITE *site){
 }
 
 
+char *site_get_palavra_chave(SITE *site, int index) {
+    if (!site || index >= site->contador_de_palavras_chave) return NULL;
+
+    return site->palavras_chave[index];
+}
+
 
 // Ler e alterar nome de um determinado site
 void site_read_nome(SITE *site, FILE *input) {

@@ -17,7 +17,7 @@
     //    -> num_sites: o numero de sites que eh obtido com a funcao conta_sites
     // - Retorno
     //      funcao retorna a lista com todos os sites
-    LISTA *recebe_dados(FILE *arquivo, int num_sites);
+    void recebe_dados(FILE *arquivo, int num_sites, LISTA **lista_de_sites, AVL **avl_de_palavras_chave);
 
     //funcao que recebe grava os dados de uma lista de sites em um arquivo
     // - Parâmetros

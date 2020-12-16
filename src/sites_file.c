@@ -4,6 +4,8 @@
 #include "TADitem.h"
 #include "TADlista.h"
 #include "TADsite.h"
+#include "TADavl.h"
+#include "TADpriorityqueue.h"
 #include "sites_file.h"
 
 //funcao que le a linha de um arquivo ate encontrar o \n ou o fim do arquivo
@@ -65,11 +67,14 @@ ITEM *separa_dados(char *dados){
 
 
 //funcao que recebe os dados do googlebot.txt e os insere na lista
-LISTA *recebe_dados(FILE *arquivo, int num_sites){
+void recebe_dados(FILE *arquivo, int num_sites, LISTA **lista_de_sites, AVL **avl_de_palavras_chave) {
     char *dados_site;
     int i = 0;
     ITEM *item;
     LISTA *lista = lista_criar();
+    AVL *avl = avl_criar();
+    // avl_set_dados_comparar(avl, &palavras_chave_ref_comparar);
+    // avl_set_dados_apagar(avl, &palavra_chave_ref_apagar);
 
     //posicionando o cursor no inicio do arquivo
     fseek(arquivo, 0, SEEK_SET);
@@ -78,11 +83,22 @@ LISTA *recebe_dados(FILE *arquivo, int num_sites){
     while(i < num_sites){            
         dados_site = readline(arquivo);
         item = separa_dados(dados_site);
-        lista_inserir(lista, item);
-        i++;
         free(dados_site);
+        
+        lista_inserir(lista, item);
+        
+        SITE *site = (SITE *) item_get_conteudo(item);
+        for (int j = 0; j < site_get_num_palavras_chave(site); j++) {
+            char *palavra_chave = site_get_palavra_chave(site, j);
+            // PALAVRA_CHAVE_REF *pchave_ref_chave = pchave_criar
+
+        }
+
+        i++;
     }
-    return lista;
+    
+    *avl_de_palavras_chave = avl;
+    *lista_de_sites = lista;
 }
 
 // Função que recebe grava os dados de uma lista de sites em um arquivo
