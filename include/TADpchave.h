@@ -50,10 +50,30 @@
     //    -> retorna um ponteiro para a fila de prioridade de sites o parametro nao seja NULL, se for retorna NULL
     PQUEUE *pchave_get_sites_relacionados(PALAVRA_CHAVE_REF *pchave);
 
+
+    // Imprimi a palavra chave e o site com mais relevancia
+    // - Parâmetros
+    //    -> dados que deseja imprimir
+    // - Retorno
+    //      void
     void pchave_ref_imprimir(void *dados);
 
+
+    // Procura a palavra chave na AVL de palavras chaves
+    // - Parâmetros
+    //    -> AVL de palavras chaves que deseja fazer a busca
+    //    -> palavra chave que deseja buscar
+    // - Retorno
+    //      ponteiro para a estrutura PALAVRA_CHAVE_REF da palara encontrada
     PALAVRA_CHAVE_REF *pchave_ref_busca_em_avl(AVL *avl_de_palavras_chave, char *palavra_chave);
 
+
+    // Procura a palavra chave na AVL de palavras chaves e insere o site na sua respcitiva fila de prioridade
+    // - Parâmetros
+    //    -> AVL de palavras chaves que deseja fazer a busca
+    //    -> site que deseja fazer a insercao
+    // - Retorno
+    //     void
     void pchave_inserir_site_relacionado_em_avl(AVL *avl_de_palavras_chave, SITE *site);
 
 #endif
