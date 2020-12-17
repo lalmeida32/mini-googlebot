@@ -43,7 +43,7 @@
 
 
 
-    // Recupera os sites relacioandas a palavra chave
+    // Recupera os sites relacionados a palavra chave
     // - Parâmetros
     //    -> pchave: palavra chave de interesse 
     // - Retorno
@@ -51,7 +51,16 @@
     PQUEUE *pchave_get_sites_relacionados(PALAVRA_CHAVE_REF *pchave);
 
 
+
+    // "Seta" uma fila de prioridade de sites a palavra chave passada como parametro
+    // - Parâmetros
+    //    -> pchave: palavra chave de interesse 
+    //    -> sites_relacionados: fila de prioridade com sites
+    // - Retorno
+    //    void
     void pchave_set_sites_relacionados(PALAVRA_CHAVE_REF *pchave, PQUEUE *sites_relacionados);
+
+
 
     // Imprimi a palavra chave e o site com mais relevancia
     // - Parâmetros
@@ -78,7 +87,7 @@
     //     void
     void pchave_insere_site_na_avl(AVL *avl_de_palavras_chave, SITE *site);
 
-    // Teste
+
     void pchave_remove_site_na_avl(AVL *avl_de_palavras_chave, SITE *site);
 
     void pchave_insere_site_na_avl_para_palavra_chave_especifica(AVL *avl_de_palavras_chave, SITE *site, char *palavra_chave);
