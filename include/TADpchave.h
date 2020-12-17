@@ -51,6 +51,16 @@
     // - Retorno
     //    -> retorna 0 se as palavras forem iguais e diferente de 0 se nao forem iguais 
     int pchave_ref_comparar(void *dados1, void *dados2);
+    
+    // "Seta" uma fila de prioridade de sites a palavra chave passada como parametro
+    // - Parâmetros
+    //    -> pchave: palavra chave de interesse 
+    //    -> sites_relacionados: fila de prioridade com sites
+    // - Retorno
+    //    void
+    void pchave_set_sites_relacionados(PALAVRA_CHAVE_REF *pchave, PQUEUE *sites_relacionados);
+
+
 
     // Imprimi a palavra chave e o site com mais relevancia
     // - Parâmetros
@@ -66,10 +76,6 @@
     // - Retorno
     //      ponteiro para a estrutura PALAVRA_CHAVE_REF da palara encontrada
     PALAVRA_CHAVE_REF *pchave_ref_busca_em_avl(AVL *avl_de_palavras_chave, char *palavra_chave);
-
-
-
-    void pchave_set_sites_relacionados(PALAVRA_CHAVE_REF *pchave, PQUEUE *sites_relacionados);
 
 
 

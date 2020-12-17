@@ -11,9 +11,6 @@
 
 
 
-
-
-
     // Cria a estrutura site na memória HEAP
     // - Parâmetros
     //    -> não tem
@@ -28,9 +25,6 @@
     // - Retorno
     //    -> não tem
     void site_apagar(SITE **site);
-
-
-
 
 
 
@@ -49,15 +43,30 @@
     // Retorna a quantidade de palavras-chave que existem em determinada estrutura SITE
     int site_get_num_palavras_chave(SITE *site);
 
-
-
+    // Recupera uma palavras-chave especifica(por meio de um indice) de um site
+    // - Parâmetros
+    //    -> site
+    //    -> index: indice da palavra-chave desejada
+    // - Retorno
+    //    -> NULL caso ocorra algum erro
+    //    -> Retorna a palavra-chave 
     char *site_get_palavra_chave(SITE *site, int index);
 
+    // Recupera o link de um site
+    // - Parâmetros
+    //    -> site de interesse
+    // - Retorno
+    //    -> NULL caso ocorra algum erro
+    //    -> Retorna o link do site
     char *site_get_link(SITE *site);
 
+    // Recupera o nome de um site
+    // - Parâmetros
+    //    -> site de interesse
+    // - Retorno
+    //    -> NULL caso ocorra algum erro
+    //    -> Retorna o nome do site
     char *site_get_nome(SITE *site);
-
-
 
     // Altera a propriedade "nome" de uma estrutura SITE
     // - Parâmetros
@@ -90,9 +99,6 @@
     // - Retorno
     //    -> TRUE se foi alterada com sucesso; FALSE caso contrário
     boolean site_add_palavra_chave(SITE *site, const char *palavra_chave);
-
-
-
 
 
     // Ler e alterar nome de um determinado site
@@ -141,8 +147,21 @@
     void site_imprimir(SITE *site, FILE *output);
 
 
+    // Compara a relevancia entre dois sites
+    // - Parâmetros
+    //    -> dados1: site 1
+    //    -> dados2: site 2
+    // - Retorno
+    //      Diferenca entre as relevancias de 2 sites
     int site_comparar_relevancia(void *dados1, void *dados2);
 
+    // Compara o link entre dois sites
+    // - Parâmetros
+    //    -> dados1: site 1
+    //    -> dados2: site 2
+    // - Retorno
+    //    == 0: Se os sites forem iguais
+    //    != 0: Se os sites forem diferentes 
     int site_comparar_link(void *dados1, void *dados2);
 
 #endif
