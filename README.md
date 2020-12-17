@@ -1,6 +1,6 @@
 # Mini Googlebot
 
-Projeto 1 da disciplina Algoritmos e Estruturas de Dados I - Prof. Rudinei Goularte
+Projeto 1 PARTE 2 da disciplina Algoritmos e Estruturas de Dados I - Prof. Rudinei Goularte
 
 ## Integrantes
 
