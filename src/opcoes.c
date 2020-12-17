@@ -361,7 +361,7 @@ void sugestao_de_sites(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
 
     // d) mostrar o nome e o link dos cinco (5) sites mais relevantes ordenados por relevância (decrescente)
 
-    // Sites são mostrados por relevância já que se trata de uma priority queueu
+    // Sites são mostrados por relevância já que se trata de uma priority queue
     for (int i = 1; i <= 5 && pqueue_get_quantidade(pqueue_sites_sugestao) > 0; i++) {
         SITE *site_sugerido = pqueue_get_topo(pqueue_sites_sugestao);
         printf("SITE %d\n", i);

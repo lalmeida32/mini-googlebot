@@ -1,6 +1,6 @@
 # Mini Googlebot
 
-Projeto 1 PARTE 2 da disciplina Algoritmos e Estruturas de Dados I - Prof. Rudinei Goularte
+Projeto PARTE 2 da disciplina Algoritmos e Estruturas de Dados I - Prof. Rudinei Goularte
 
 ## Integrantes
 
@@ -28,6 +28,8 @@ Neste trabalho utilizamos o compilador GCC no Linux.
 
 ## Justificativas
 
+#### Parte 1 do Projeto
+
 Para organizar os sites do arquivo "googlebot.txt", decidimos utilizar a estrutura de dados **lista**. Era necessário inserir e remover elementos em qualquer posição, por isso não foi conveniente implementar a estrutura **pilha**, visto que a pilha apenas permite acesso a um elemento de uma das extremidades.
 
 Decidimos implementar a lista como **simplesmente encadeada** principalmente por não sabermos a quantidade de elementos que seriam inseridos. Além disso, para inserir (ou remover) um elemento no meio da lista, não há a necessidade de mover os elementos posteriores.
@@ -53,6 +55,18 @@ E no TAD lista:
 - lista_imprimir_conteudo: a função lista_imprimir apenas imprime na saída padrão todas as chaves em sequência. Já a função lista_imprimir_conteudo, imprime não só a chave mas o conteúdo, e possui parâmetros adicionais: `FILE *output`, para que o usuário decida onde a lista será impressa; `void (*imprimir_conteudo)(void *, FILE *)`, para que o usuário imprima o conteúdo de cada item de maneira correta; `const char *format` para que o usuário decida como a chave de cada item será impressa. É uma função mais genérica que a lista_imprimir e foi necessária para gerar um arquivo de saída e verificar se o programa está sendo executado corretamente. Exemplo de uso, com uma lista de sites: `lista_imprimir_conteudo(lista_de_sites, stdout, &site_imprimir, "%04d\n")`
 
 Além disso, no TAD item foram adicionadas duas funções: item_get_chave_erro e item_get_conteudo_erro, que retorna se houve erro ou não por referência. É útil caso o usuário queira fazer esse tipo de verificação e desalocar a memória alocada dinamicamente de maneira adequada antes de abortar a execução do programa.
+
+#### Parte 2 do Projeto
+
+Para a parte 2, decidimos utilizar uma **AVL** de registros (`struct`). Cada registro contém uma palavra-chave e uma **Fila de Prioridade**.
+
+A `avl_de_palavras_chave`, como decidimos chamar essa estrutura, contém todas as palavras-chave de cada um dos sites da lista de sites. Ela é ordenada pela ordem alfabética das palavras-chave, facilitando a busca que, segundo o enunciado, seria a operação mais frequente.
+
+Além disso, a fila de prioridade `sites_relacionados` de cada um dos registros da `avl_de_palavras_chave` armazena os sites que contém aquela palavra-chave. Como se trata de uma fila de prioridade, o "topo" contém os sites mais relevantes, o que facilitará ainda mais a operação de busca dos sites que contém determinada palavra-chave, por ordem de relevância.
+
+Segue um diagrama da estrutura:
+
+![](/home/lucas/Projetos/USP Buffer/algi/mini-googlebot/Diagrama.png)
 
 ## Comentários adicionais
 
