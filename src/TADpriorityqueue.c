@@ -119,7 +119,6 @@ PQUEUE_NO *pqueue_inserir_recursiva(PQUEUE_NO *no_pai, int no_objetivo, int comp
     return no_pai;
 }
 
-
 void pqueue_inserir(PQUEUE *pqueue, void *dados) {
     if (!pqueue || !pqueue->dados_comparar) return;
 
@@ -130,7 +129,6 @@ void pqueue_inserir(PQUEUE *pqueue, void *dados) {
     pqueue->quantidade = no_objetivo;
     pqueue->altura = comprimento_ate_no_objetivo;
 }
-
 
 PQUEUE_NO *pqueue_remover_recursiva(PQUEUE_NO *no_pai, int no_objetivo, int comprimento, PQUEUE_NO *raiz, void (*dados_apagar) (void **)) {
 
@@ -196,11 +194,12 @@ void pqueue_remover(PQUEUE *pqueue) {
 
 }
 
+
+
 void *pqueue_get_topo(PQUEUE *pqueue) {
     if (!pqueue || !pqueue->raiz) return NULL;
     return pqueue->raiz->dados;
 }
-
 
 int pqueue_get_quantidade(PQUEUE *pqueue) {
     if (!pqueue) return -1;

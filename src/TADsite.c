@@ -173,16 +173,18 @@ void site_imprimir(SITE *site, FILE *output) {
 }
 
 
-
+//compara a relevancia entre dois sites
 int site_comparar_relevancia(void *dados1, void *dados2) {
+    //fazendo o casting nos dados, transformando eles para sites
     SITE *site1 = (SITE *) dados1;
     SITE *site2 = (SITE *) dados2;
 
     return site1->relevancia - site2->relevancia;
 }
 
-
+//comapara o link dos sites
 int site_comparar_link(void *dados1, void *dados2) {
+    //fazendo o casting nos dados, transformando eles para sites
     SITE *site1 = (SITE *) dados1;
     SITE *site2 = (SITE *) dados2;
 
