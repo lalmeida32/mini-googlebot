@@ -104,6 +104,7 @@ void remover_site(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
         PALAVRA_CHAVE_REF *pchave_ref = pchave_ref_busca_em_avl(avl_de_palavras_chave, palavra_chave);
         PQUEUE *pqueue_atual = pchave_get_sites_relacionados(pchave_ref);
         PQUEUE *auxiliar = pqueue_criar();
+        pqueue_set_dados_comparar(auxiliar, &site_comparar_relevancia);
 
         while (pqueue_get_quantidade(pqueue_atual)) {
             SITE *site_atual = pqueue_get_topo(pqueue_atual);
@@ -139,6 +140,9 @@ void inserir_palavra_chave(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
     item = lista_busca(lista_de_sites, chave);
 
     if(item != NULL){
+
+        SITE *site = (SITE *) item_get_conteudo(item);
+
         //obtendo a quantidade de chaves do site
         contador_de_palavras_chave = site_get_num_palavras_chave(item_get_conteudo(item));
 
@@ -154,6 +158,9 @@ void inserir_palavra_chave(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
                     site_add_palavra_chave(item_get_conteudo(item), palavra_chave);
                     contador_de_palavras_chave++;
                 }
+                
+                pchave_inserir_site_relacionado_em_pchave_ref_da_avl(avl_de_palavras_chave, site, palavra_chave);
+
                 free(palavra_chave);
             } while (continuar != -1 && contador_de_palavras_chave < site_get_palavras_chave_max_count());
             if (contador_de_palavras_chave == site_get_palavras_chave_max_count())

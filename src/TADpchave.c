@@ -53,7 +53,7 @@ PQUEUE *pchave_get_sites_relacionados(PALAVRA_CHAVE_REF *pchave){
     return pchave->sites_relacionados;
 }
 
-void pchave_set_sites_relacionados(PALAVRA_CHAVE_REF *pchave, PQUEUE *sites_relacionados){
+void pchave_set_sites_relacionados(PALAVRA_CHAVE_REF *pchave, PQUEUE *sites_relacionados) {
     // caso de erro ( não existe)
     if (pchave == NULL) return;
 
@@ -79,25 +79,29 @@ PALAVRA_CHAVE_REF *pchave_ref_busca_em_avl(AVL *avl_de_palavras_chave, char *pal
 
 }
 
+void pchave_inserir_site_relacionado_em_pchave_ref_da_avl(AVL *avl_de_palavras_chave, SITE *site, char *palavra_chave) {
+    PALAVRA_CHAVE_REF *pchave_ref_encontrada = pchave_ref_busca_em_avl(avl_de_palavras_chave, palavra_chave);
+
+    // encontrou na árvore a palavra-chave buscada
+    if (pchave_ref_encontrada)
+        
+        // insere site na pqueue da palavra chave 
+        pqueue_inserir(pchave_get_sites_relacionados(pchave_ref_encontrada), site);
+    
+    // não encontrou
+    else {
+        PQUEUE *pqueue_de_sites = pqueue_criar();
+        pqueue_set_dados_comparar(pqueue_de_sites, &site_comparar_relevancia);
+        pqueue_inserir(pqueue_de_sites, site);
+        PALAVRA_CHAVE_REF *pchave_ref = pchave_ref_criar(palavra_chave, pqueue_de_sites);
+        avl_inserir(avl_de_palavras_chave, pchave_ref);
+    }
+}
+
 void pchave_inserir_site_relacionado_em_avl(AVL *avl_de_palavras_chave, SITE *site) {
     for (int j = 0; j < site_get_num_palavras_chave(site); j++) {
         char *palavra_chave = site_get_palavra_chave(site, j);
-        PALAVRA_CHAVE_REF *pchave_ref_encontrada = pchave_ref_busca_em_avl(avl_de_palavras_chave, palavra_chave);
 
-        // encontrou na árvore a palavra-chave buscada
-        if (pchave_ref_encontrada)
-            
-            // insere site na pqueue da palavra chave 
-            pqueue_inserir(pchave_get_sites_relacionados(pchave_ref_encontrada), site);
-        
-        // não encontrou
-        else {
-            PQUEUE *pqueue_de_sites = pqueue_criar();
-            pqueue_set_dados_comparar(pqueue_de_sites, &site_comparar_relevancia);
-            pqueue_inserir(pqueue_de_sites, site);
-            PALAVRA_CHAVE_REF *pchave_ref = pchave_ref_criar(palavra_chave, pqueue_de_sites);
-            avl_inserir(avl_de_palavras_chave, pchave_ref);
-        }
-        
+        pchave_inserir_site_relacionado_em_pchave_ref_da_avl(avl_de_palavras_chave, site, palavra_chave);
     }
 }

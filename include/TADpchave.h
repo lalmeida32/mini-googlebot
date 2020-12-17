@@ -57,4 +57,6 @@
 
     void pchave_inserir_site_relacionado_em_avl(AVL *avl_de_palavras_chave, SITE *site);
 
+    void pchave_inserir_site_relacionado_em_pchave_ref_da_avl(AVL *avl_de_palavras_chave, SITE *site, char *palavra_chave);
+
 #endif

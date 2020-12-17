@@ -151,6 +151,8 @@ void site_read_palavra_chave(SITE *site, FILE *input) {
 
 // Imprime em um arquivo as informações sobre determinado site no formato CSV
 void site_imprimir(SITE *site, FILE *output) {
+    if (!site) return;
+    
     fprintf(output, "%s", site->nome);
     fprintf(output, ",%d", site->relevancia);
     fprintf(output, ",%s", site->link);
