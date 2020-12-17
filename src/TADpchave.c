@@ -8,6 +8,7 @@ struct palavra_chave_ref{
 };
 
 
+//cria o tad pchave
 PALAVRA_CHAVE_REF *pchave_ref_criar(char *palavra, PQUEUE *sites){
     PALAVRA_CHAVE_REF *pchave = (PALAVRA_CHAVE_REF *) malloc(sizeof(PALAVRA_CHAVE_REF));
     if(pchave != NULL){
@@ -17,8 +18,9 @@ PALAVRA_CHAVE_REF *pchave_ref_criar(char *palavra, PQUEUE *sites){
     return pchave;
 }
 
-
+//compara duas palavras chaves
 int pchave_ref_comparar(void *dados1, void *dados2) {
+    //fazendo um casting para poder comparar as palavras chaves
     PALAVRA_CHAVE_REF *pchave_ref1 = (PALAVRA_CHAVE_REF *) dados1;
     PALAVRA_CHAVE_REF *pchave_ref2 = (PALAVRA_CHAVE_REF *) dados2;
 
@@ -26,6 +28,7 @@ int pchave_ref_comparar(void *dados1, void *dados2) {
 }
 
 
+//apaga o tad pchave
 void pchave_ref_apagar(void **dados){
     if (!dados || !(*dados)) 
         return;
@@ -39,7 +42,7 @@ void pchave_ref_apagar(void **dados){
 
 
 char *pchave_get_palavra_chave(PALAVRA_CHAVE_REF *pchave){
-    // caso de erro ( não existe)
+    //se nao existir
     if (pchave == NULL) return NULL;
 
     // sem erros
@@ -60,6 +63,7 @@ void pchave_set_sites_relacionados(PALAVRA_CHAVE_REF *pchave, PQUEUE *sites_rela
     pchave->sites_relacionados = sites_relacionados;
 }
 
+//imprime a palavra-chave e o site relacionado a ela com maior relevancia
 void pchave_ref_imprimir(void *dados) {
     PALAVRA_CHAVE_REF *pchave = (PALAVRA_CHAVE_REF *) dados;
 
@@ -68,6 +72,8 @@ void pchave_ref_imprimir(void *dados) {
     printf("\n\n");
 }
 
+
+//busca na avl de palavras chave a procura de uma determinada palavra chave
 PALAVRA_CHAVE_REF *pchave_ref_busca_em_avl(AVL *avl_de_palavras_chave, char *palavra_chave) {
     if (!avl_de_palavras_chave || !palavra_chave) return NULL;
 
@@ -107,6 +113,7 @@ void pchave_insere_site_na_avl(AVL *avl_de_palavras_chave, SITE *site) {
     }
 }
 
+//remove site da fila de prioridade de sites de uma palavra-chave especifica(buscada na avl_de_palavras_chave)
 void pchave_remove_site_na_avl_para_palavra_chave_especifica(AVL *avl_de_palavras_chave, SITE *site, char *palavra_chave) {
     
     PALAVRA_CHAVE_REF *pchave_ref_encontrada = pchave_ref_busca_em_avl(avl_de_palavras_chave, palavra_chave);
@@ -130,6 +137,8 @@ void pchave_remove_site_na_avl_para_palavra_chave_especifica(AVL *avl_de_palavra
 
 }
 
+
+//Elimina todas as "ligaçoes" do site (passado como parameto) com as palavras chave da avl_de_palavras_chave
 void pchave_remove_site_na_avl(AVL *avl_de_palavras_chave, SITE *site) {
 
     for (int i = 0; i < site_get_num_palavras_chave(site); i++) {
