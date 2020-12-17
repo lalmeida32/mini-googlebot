@@ -93,8 +93,8 @@ void recebe_dados(FILE *arquivo, int num_sites, LISTA **lista_de_sites, AVL **av
         // Inserindo item contendo chave na lista
         lista_inserir(lista, item);
         
-        // Se palavra-chave não existir, cria PALAVRA_CHAVE_REF e colocar o site em questão na PQUEUE de sites relacionados
-        // Se existir, adicionar site na PQUEUE de sites relacionados na PALAVRA_CHAVE_REF 
+        // Inserindo o site na avl de palavras-chave
+        // (insere as palavras-chave e o site na pqueue de sites_relacionados)
         SITE *site = (SITE *) item_get_conteudo(item);
         pchave_insere_site_na_avl(avl, site);
 

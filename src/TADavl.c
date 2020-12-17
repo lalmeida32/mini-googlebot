@@ -19,7 +19,7 @@ struct avl{
 };
 
 
-
+// Cria e inicializa a estrutura AVL 
 AVL *avl_criar(void){
     AVL *avl = (AVL *) malloc(sizeof(AVL));
     if(avl != NULL){
@@ -32,7 +32,7 @@ AVL *avl_criar(void){
     return avl;
 }
 
-
+// Configura a função de apagar dados
 void avl_set_dados_apagar(AVL *avl, void (*dados_apagar)(void **)){
     if(avl != NULL){
         avl->dados_apagar = dados_apagar;
@@ -40,6 +40,7 @@ void avl_set_dados_apagar(AVL *avl, void (*dados_apagar)(void **)){
 }
 
 
+// Configura a função de comparar dados
 void avl_set_dados_comparar(AVL *avl, int (*dados_comparar)(void *, void *)){
     if(avl != NULL){
         avl->dados_comparar = dados_comparar;
@@ -47,6 +48,7 @@ void avl_set_dados_comparar(AVL *avl, int (*dados_comparar)(void *, void *)){
 }
 
 
+// Configura a função de imprimir dados
 void avl_set_dados_imprimir(AVL *avl, void (*dados_imprimir)(void *)){
     if(avl != NULL){
         avl->dados_imprimir = dados_imprimir;
@@ -98,6 +100,8 @@ int avl_altura_no(AVL_NO *raiz){
 }
 
 
+/* FUNÇÕES DE ROTAÇÃO */
+
 AVL_NO *rotacao_direita(AVL_NO *a){
     AVL_NO *b = a->filho_esquerdo;
     a->filho_esquerdo = b->filho_direito;
@@ -134,6 +138,10 @@ AVL_NO *rotacao_direita_esquerda(AVL_NO *a){
 }
 
 
+
+
+// Procura recursivamente na AVL pela localização do nó inserido e realiza rotações para garantir
+// que a árvore será balanceada
 AVL_NO *avl_inserir_no(AVL_NO *raiz, void *dados, int (*dados_comparar)(void *, void *)){
     if(raiz == NULL){//se a avl for vazia criamos um no e inserimos
         raiz = cria_no(dados);
@@ -165,7 +173,7 @@ AVL_NO *avl_inserir_no(AVL_NO *raiz, void *dados, int (*dados_comparar)(void *, 
     return raiz;
 }
 
-//insere um no na AVL
+//insere um nó na AVL
 boolean avl_inserir(AVL *arvore, void *dados){
     if(arvore->dados_comparar == NULL)
         return FALSE;
@@ -187,7 +195,7 @@ void troca_max_esq(AVL_NO *troca, AVL_NO *raiz, AVL_NO *ant){
     troca = NULL;
 }
 
-
+// Procura recursivamente por uma chave nos nós da AVL
 void *avl_busca_aux(AVL_NO *raiz, void *chave, int (*dados_comparar) (void *, void *)) {
     if (!raiz) return NULL;
 
@@ -205,7 +213,8 @@ void *avl_busca(AVL *avl, void *chave) {
     return avl_busca_aux(avl->raiz, chave, avl->dados_comparar);
 }
 
-
+// Procura recursivamente pelo nó a ser removido e realiza as operações necessárias
+// para manter a árvore balanceada
 AVL_NO *avl_remover_aux(AVL_NO **raiz, void *chave, void (*dados_apagar)(void **), int (*dados_comparar)(void *, void *)){
     AVL_NO *p;
     if(*raiz == NULL)//arvore vazia
@@ -231,6 +240,7 @@ AVL_NO *avl_remover_aux(AVL_NO **raiz, void *chave, void (*dados_apagar)(void **
     else if(dados_comparar(chave, (*raiz)->dados) > 0)
         (*raiz)->filho_direito = avl_remover_aux(&(*raiz)->filho_direito, chave, dados_apagar, dados_comparar);
     
+    // Rotações
     if(*raiz != NULL){//realizando as rotacoes se necessario
         (*raiz)->altura = max(avl_altura_no((*raiz)->filho_esquerdo), avl_altura_no((*raiz)->filho_direito)) + 1;
 
@@ -252,7 +262,7 @@ AVL_NO *avl_remover_aux(AVL_NO **raiz, void *chave, void (*dados_apagar)(void **
 
 }
 
-//remove um no da AVL, dada uma chave passada pelo usario
+//remove um nó da AVL, dada uma chave passada pelo usario
 boolean avl_remover(AVL *arvore, void *chave){
     if(arvore->dados_comparar == NULL)
         return FALSE;
@@ -269,6 +279,7 @@ void alv_imprimir_em_ordem(AVL_NO *raiz, void(*dados_imprimir)(void *)){
     }
 }
 
+// Imprime os dados da árvore em ordem
 void avl_print(AVL *arvore){
     if (arvore != NULL && arvore->dados_imprimir != NULL){ 
         alv_imprimir_em_ordem(arvore->raiz, arvore->dados_imprimir);
