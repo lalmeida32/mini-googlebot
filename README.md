@@ -2,15 +2,21 @@
 
 Projeto PARTE 2 da disciplina Algoritmos e Estruturas de Dados I - Prof. Rudinei Goularte
 
+
+
 ## Integrantes
 
 Eduardo Vinícius Barbosa Rossi - 10716887
 
 Lucas Ferreira de Almeida - 11262063
 
+
+
 ## Compilador utilizado
 
 Neste trabalho utilizamos o compilador GCC no Linux.
+
+
 
 ## Instruções de uso do programa
 
@@ -25,6 +31,8 @@ Neste trabalho utilizamos o compilador GCC no Linux.
 - Execute o comando "make clean" para limpar os arquivos gerados pela compilação do programa e pelo comando "make zip".
 
 - Execute o comando "make zip" para criar um arquivo .zip contendo os diretórios e arquivos necessários para a compilação do programa.
+
+
 
 ## Justificativas
 
@@ -60,14 +68,38 @@ Além disso, no TAD item foram adicionadas duas funções: item_get_chave_erro e
 
 Para a parte 2, decidimos utilizar uma **AVL** de registros (`struct`). Cada registro contém uma palavra-chave e uma **Fila de Prioridade**.
 
-A `avl_de_palavras_chave`, como decidimos chamar essa estrutura, contém todas as palavras-chave de cada um dos sites da lista de sites. Ela é ordenada pela ordem alfabética das palavras-chave, facilitando a busca que, segundo o enunciado, seria a operação mais frequente.
+A `avl_de_palavras_chave`, como decidimos chamar essa estrutura, contém todas as palavras-chave de cada um dos sites da lista de sites. Ela é ordenada pela ordem alfabética das palavras-chave.
 
-Além disso, a fila de prioridade `sites_relacionados` de cada um dos registros da `avl_de_palavras_chave` armazena os sites que contém aquela palavra-chave. Como se trata de uma fila de prioridade, o "topo" contém os sites mais relevantes, o que facilitará ainda mais a operação de busca dos sites que contém determinada palavra-chave, por ordem de relevância.
+Além disso, a fila de prioridade `sites_relacionados` de cada um dos registros da `avl_de_palavras_chave` armazena os sites que contém aquela palavra-chave. Como se trata de uma fila de prioridade, o "topo" contém o site mais relevante.
 
 Segue um diagrama da estrutura:
 
 ![](/home/lucas/Projetos/USP Buffer/algi/mini-googlebot/Diagrama.png)
 
+A estrutura em azul é a fila de prioridade, com a relevância de cada site, a estrutura em verde é o registro de cada nó da avl, e a estrutura em preto é a avl de palavras-chave.
+
+Nós escolhemos a **AVL** pois, ao inserir, remover e buscar as palavras-chave, temos uma baixa complexidade assintótica de tempo, já que se trata de uma árvore binária de busca que se mantém balanceada. A escolha da **Fila de prioridade** é para inserir sites em baixa complexidade assintótica de tempo e, principalmente, ter fácil acesso ao site de maior relevância para aquela determinada palavra-chave (O(1)), o que poderia ser mais custoso utilizando outra estrutura de dados.
+
+Tanto a AVL quanto a Fila de prioridade foram implementadas de modo **encadeado**, pois não sabemos de antemão quantos sites e palavras-chave serão adicionados, então seria melhor adicioná-los dinamicamente.
+
+Como o enunciado deixa claro que a **busca** é a operação mais **frequente** e não nos é passada uma restrição quanto à **memória**, optamos por investir em uma busca mais **otimizada**, ocupando mais memória que o necessário.
+
+Segue uma tabela com a complexidade de tempo de cada operação relevante, sendo "n" a quantidade de palavras-chave e "s" a quantidades de sites em determinada palavra-chave.
+
+| Operação                                                     | Complexidade     |
+| ------------------------------------------------------------ | ---------------- |
+| Busca por palavra-chave                                      | O(log n)         |
+| Acesso ao site mais relevante de palavra-chave               | O(log n)         |
+| Inserção de site em palavra-chave                            | O(log n + log s) |
+| Impressão dos sites mais relevantes de determinada palavra-chave | O(log n + s)     |
+
+
+
 ## Comentários adicionais
 
 Cada vez que o programa é executado, um arquivo "googlebot_out.txt" é gerado de acordo com as operações que foram executadas.
+
+A parte 1 do projeto foi adaptada para o uso das novas estruturas.
+
+
+
