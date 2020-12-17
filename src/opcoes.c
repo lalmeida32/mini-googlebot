@@ -8,6 +8,9 @@
 #include"TADpchave.h"
 #include"TADpriorityqueue.h"
 
+
+
+
 // Função para inserir a partir da entrada padrão (stdin) novo site em uma lista de sites
 void inserir_site(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
     int chave;
@@ -73,7 +76,7 @@ void inserir_site(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
     printf("Item inserido com sucesso!\n");
 
     SITE *novo_site = (SITE *) item_get_conteudo(novo_item);
-    pchave_inserir_site_relacionado_em_avl(avl_de_palavras_chave, novo_site);
+    pchave_insere_site_na_avl(avl_de_palavras_chave, novo_site);
 
 }
 
@@ -91,31 +94,14 @@ void remover_site(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
     }
 
     ITEM *item = lista_busca(lista_de_sites, chave);
-
     if (!item) {
         printf("Não foi possível encontrar esse item!\n");
         return;
     }
 
-    SITE *site = item_get_conteudo(item);
 
-    for (int i = 0; i < site_get_num_palavras_chave(site); i++) {
-        char *palavra_chave = site_get_palavra_chave(site, i);
-        PALAVRA_CHAVE_REF *pchave_ref = pchave_ref_busca_em_avl(avl_de_palavras_chave, palavra_chave);
-        PQUEUE *pqueue_atual = pchave_get_sites_relacionados(pchave_ref);
-        PQUEUE *auxiliar = pqueue_criar();
-        pqueue_set_dados_comparar(auxiliar, &site_comparar_relevancia);
-
-        while (pqueue_get_quantidade(pqueue_atual)) {
-            SITE *site_atual = pqueue_get_topo(pqueue_atual);
-            if (site_atual != site)
-                pqueue_inserir(auxiliar, site_atual);
-            pqueue_remover(pqueue_atual);
-        }
-        pchave_set_sites_relacionados(pchave_ref, auxiliar);
-
-        pqueue_free(&pqueue_atual);
-    }
+    SITE *site = (SITE *) item_get_conteudo(item);
+    pchave_remove_site_na_avl(avl_de_palavras_chave, site);
 
     // removendo site da lista e verificando se de fato ele foi removido
     if (lista_remover(lista_de_sites, chave, (void (*) (void **)) &site_apagar)) {
@@ -157,9 +143,8 @@ void inserir_palavra_chave(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
                 if (continuar != -1) {
                     site_add_palavra_chave(item_get_conteudo(item), palavra_chave);
                     contador_de_palavras_chave++;
-                }
-                
-                pchave_inserir_site_relacionado_em_pchave_ref_da_avl(avl_de_palavras_chave, site, palavra_chave);
+                    pchave_insere_site_na_avl_para_palavra_chave_especifica(avl_de_palavras_chave, site, palavra_chave);
+                }    
 
                 free(palavra_chave);
             } while (continuar != -1 && contador_de_palavras_chave < site_get_palavras_chave_max_count());
@@ -186,12 +171,19 @@ void atualizar_relevancia(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
 
     // item encontrado
     if(item != NULL){
+
+        SITE *site = (SITE *) item_get_conteudo(item);
+
         printf("Relevância: ");
+
+        pchave_remove_site_na_avl(avl_de_palavras_chave, site);
         site_read_relevancia(item_get_conteudo(item), stdin);
+        pchave_insere_site_na_avl(avl_de_palavras_chave, site);
+
+        return;
     }
     // item não encontrado
-    else
-        printf("Site nao encontrado\n");
+    printf("Site nao encontrado\n");
 
 }
 

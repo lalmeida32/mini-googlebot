@@ -76,8 +76,11 @@
     //    -> site que deseja fazer a insercao
     // - Retorno
     //     void
-    void pchave_inserir_site_relacionado_em_avl(AVL *avl_de_palavras_chave, SITE *site);
+    void pchave_insere_site_na_avl(AVL *avl_de_palavras_chave, SITE *site);
 
-    void pchave_inserir_site_relacionado_em_pchave_ref_da_avl(AVL *avl_de_palavras_chave, SITE *site, char *palavra_chave);
+    // Teste
+    void pchave_remove_site_na_avl(AVL *avl_de_palavras_chave, SITE *site);
+
+    void pchave_insere_site_na_avl_para_palavra_chave_especifica(AVL *avl_de_palavras_chave, SITE *site, char *palavra_chave);
 
 #endif

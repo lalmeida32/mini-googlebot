@@ -79,29 +79,62 @@ PALAVRA_CHAVE_REF *pchave_ref_busca_em_avl(AVL *avl_de_palavras_chave, char *pal
 
 }
 
-void pchave_inserir_site_relacionado_em_pchave_ref_da_avl(AVL *avl_de_palavras_chave, SITE *site, char *palavra_chave) {
+// Busca por uma palavra chave de um site na avl e o adiciona na pqueue de sites relacionados
+void pchave_insere_site_na_avl_para_palavra_chave_especifica(AVL *avl_de_palavras_chave, SITE *site, char *palavra_chave) {
     PALAVRA_CHAVE_REF *pchave_ref_encontrada = pchave_ref_busca_em_avl(avl_de_palavras_chave, palavra_chave);
 
-    // encontrou na árvore a palavra-chave buscada
-    if (pchave_ref_encontrada)
-        
-        // insere site na pqueue da palavra chave 
-        pqueue_inserir(pchave_get_sites_relacionados(pchave_ref_encontrada), site);
-    
     // não encontrou
-    else {
+    if (!pchave_ref_encontrada) {
         PQUEUE *pqueue_de_sites = pqueue_criar();
         pqueue_set_dados_comparar(pqueue_de_sites, &site_comparar_relevancia);
         pqueue_inserir(pqueue_de_sites, site);
         PALAVRA_CHAVE_REF *pchave_ref = pchave_ref_criar(palavra_chave, pqueue_de_sites);
         avl_inserir(avl_de_palavras_chave, pchave_ref);
+        return;
     }
+    
+    // encontrou na árvore a palavra-chave buscada
+    // insere site na pqueue da palavra chave 
+    pqueue_inserir(pchave_get_sites_relacionados(pchave_ref_encontrada), site);
 }
 
-void pchave_inserir_site_relacionado_em_avl(AVL *avl_de_palavras_chave, SITE *site) {
+// Busca pelas palavras chaves de um site na avl e adiciona o site na pqueue de sites relacionados
+void pchave_insere_site_na_avl(AVL *avl_de_palavras_chave, SITE *site) {
     for (int j = 0; j < site_get_num_palavras_chave(site); j++) {
         char *palavra_chave = site_get_palavra_chave(site, j);
 
-        pchave_inserir_site_relacionado_em_pchave_ref_da_avl(avl_de_palavras_chave, site, palavra_chave);
+        pchave_insere_site_na_avl_para_palavra_chave_especifica(avl_de_palavras_chave, site, palavra_chave);
+    }
+}
+
+void pchave_remove_site_na_avl_para_palavra_chave_especifica(AVL *avl_de_palavras_chave, SITE *site, char *palavra_chave) {
+    
+    PALAVRA_CHAVE_REF *pchave_ref_encontrada = pchave_ref_busca_em_avl(avl_de_palavras_chave, palavra_chave);
+
+    // não encontrou
+    if (!pchave_ref_encontrada) return;
+
+    PQUEUE *pqueue_atual = pchave_get_sites_relacionados(pchave_ref_encontrada);
+    PQUEUE *auxiliar = pqueue_criar();
+    pqueue_set_dados_comparar(auxiliar, &site_comparar_relevancia);
+
+    while (pqueue_get_quantidade(pqueue_atual)) {
+        SITE *site_atual = pqueue_get_topo(pqueue_atual);
+        if (site_atual != site)
+            pqueue_inserir(auxiliar, site_atual);
+        pqueue_remover(pqueue_atual);
+    }
+    pchave_set_sites_relacionados(pchave_ref_encontrada, auxiliar);
+
+    pqueue_free(&pqueue_atual);
+
+}
+
+void pchave_remove_site_na_avl(AVL *avl_de_palavras_chave, SITE *site) {
+
+    for (int i = 0; i < site_get_num_palavras_chave(site); i++) {
+        char *palavra_chave = site_get_palavra_chave(site, i);
+
+        pchave_remove_site_na_avl_para_palavra_chave_especifica(avl_de_palavras_chave, site, palavra_chave);
     }
 }
