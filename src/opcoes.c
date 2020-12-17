@@ -66,12 +66,10 @@ void inserir_site(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
     // acrescentando o link à lista e verificando se foi mesmo possível adicioná-lo
     if (lista_inserir(lista_de_sites, novo_item)) {
         printf("Item inserido com sucesso!\n");
-        return;
     }
     else {
         printf("Ocorreu um erro ao inserir este item!\n");
         item_apagar(&novo_item, (void (*) (void **)) &site_apagar);
-        return;
     }
 
     SITE *novo_site = (SITE *) item_get_conteudo(novo_item);
@@ -180,6 +178,10 @@ void chamar_opcao(LISTA *lista_de_sites, AVL *avl_de_palavras_chave, int opcao) 
             atualizar_relevancia(lista_de_sites, avl_de_palavras_chave);
             break;
         case 5:
+            break;
+        case 6:
+            break;
+        case 7:
             break;
         default:
             printf("Opção inválida!\n");

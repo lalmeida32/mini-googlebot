@@ -43,8 +43,9 @@ int main(void) {
 
         scanf("%d", &opcao);
         chamar_opcao(lista_de_sites, avl_de_palavras_chave, opcao);
-    } while(opcao != 5);
+    } while(opcao != 7);
 
+    avl_print(avl_de_palavras_chave);
 
     // nova lista de sites modificadas salva no arquivo de saída
     printf("Aguarde enquanto os dados estão sendo gravados no arquivo de saída\n");

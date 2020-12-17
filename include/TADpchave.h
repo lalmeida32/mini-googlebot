@@ -3,6 +3,7 @@
 
     #include "TADpriorityqueue.h"
     #include "TADavl.h"
+    #include "TADsite.h"
     #include <string.h>
 
     typedef struct palavra_chave_ref PALAVRA_CHAVE_REF;

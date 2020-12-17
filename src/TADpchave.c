@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "TADpchave.h"
-#include "TADsite.h"
-
 
 struct palavra_chave_ref{
     char palavra_chave[50];
