@@ -4,7 +4,6 @@
 
 #include"TADsite.h"
 #include"uteis.h"
-
 struct site_t {
     char nome[50];
     int relevancia;

@@ -37,12 +37,15 @@ int main(void) {
         printf("2 - Remover Site\n");
         printf("3 - Inserir Palavra-chave\n");
         printf("4 - Atualizar Relevância\n");
-        printf("5 - Sair\n\n");
+        printf("5 - Buscar por Palavra-chave\n");
+        printf("6 - Sugestão de Sites\n");
+        printf("7 - Sair\n\n");
 
         scanf("%d", &opcao);
-        chamar_opcao(lista_de_sites, opcao);
-    } while(opcao != 5);
+        chamar_opcao(lista_de_sites, avl_de_palavras_chave, opcao);
+    } while(opcao != 7);
 
+    avl_print(avl_de_palavras_chave);
 
     // nova lista de sites modificadas salva no arquivo de saída
     printf("Aguarde enquanto os dados estão sendo gravados no arquivo de saída\n");
