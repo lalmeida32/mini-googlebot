@@ -48,6 +48,9 @@
     //    -> retorna um ponteiro para a fila de prioridade de sites o parametro nao seja NULL, se for retorna NULL
     PQUEUE *pchave_get_sites_relacionados(PALAVRA_CHAVE_REF *pchave);
 
+
+    void pchave_set_sites_relacionados(PALAVRA_CHAVE_REF *pchave, PQUEUE *sites_relacionados);
+
     void pchave_ref_imprimir(void *dados);
 
     PALAVRA_CHAVE_REF *pchave_ref_busca_em_avl(AVL *avl_de_palavras_chave, char *palavra_chave);

@@ -64,13 +64,13 @@ void inserir_site(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
         printf("Voce ja atingiu o limite de palavras chave para esse site\n");
 
     // acrescentando o link à lista e verificando se foi mesmo possível adicioná-lo
-    if (lista_inserir(lista_de_sites, novo_item)) {
-        printf("Item inserido com sucesso!\n");
-    }
-    else {
+    if (!lista_inserir(lista_de_sites, novo_item)) {
         printf("Ocorreu um erro ao inserir este item!\n");
         item_apagar(&novo_item, (void (*) (void **)) &site_apagar);
+        return;
     }
+    
+    printf("Item inserido com sucesso!\n");
 
     SITE *novo_site = (SITE *) item_get_conteudo(novo_item);
     pchave_inserir_site_relacionado_em_avl(avl_de_palavras_chave, novo_site);
@@ -88,6 +88,32 @@ void remover_site(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
     {
         printf("Não foi possível inserir esse site. (Valor inválido para chave)\n");
         return;
+    }
+
+    ITEM *item = lista_busca(lista_de_sites, chave);
+
+    if (!item) {
+        printf("Não foi possível encontrar esse item!\n");
+        return;
+    }
+
+    SITE *site = item_get_conteudo(item);
+
+    for (int i = 0; i < site_get_num_palavras_chave(site); i++) {
+        char *palavra_chave = site_get_palavra_chave(site, i);
+        PALAVRA_CHAVE_REF *pchave_ref = pchave_ref_busca_em_avl(avl_de_palavras_chave, palavra_chave);
+        PQUEUE *pqueue_atual = pchave_get_sites_relacionados(pchave_ref);
+        PQUEUE *auxiliar = pqueue_criar();
+
+        while (pqueue_get_quantidade(pqueue_atual)) {
+            SITE *site_atual = pqueue_get_topo(pqueue_atual);
+            if (site_atual != site)
+                pqueue_inserir(auxiliar, site_atual);
+            pqueue_remover(pqueue_atual);
+        }
+        pchave_set_sites_relacionados(pchave_ref, auxiliar);
+
+        pqueue_free(&pqueue_atual);
     }
 
     // removendo site da lista e verificando se de fato ele foi removido
