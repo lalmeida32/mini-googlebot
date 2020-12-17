@@ -1,4 +1,5 @@
 *.o
 executavel
 *.zip
+googlebot_out.txt
 input.txt
