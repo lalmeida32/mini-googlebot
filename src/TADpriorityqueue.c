@@ -15,6 +15,7 @@ struct priority_queue_t {
     int (*dados_comparar)(void *, void *);
 };
 
+//cria no para que possa ser inserido na fila de prioridade
 PQUEUE_NO *pqueue_no_criar(void * dados) {
     PQUEUE_NO *novo_no = (PQUEUE_NO *) malloc(sizeof(PQUEUE_NO));
     if (!novo_no) return NULL;
@@ -26,6 +27,8 @@ PQUEUE_NO *pqueue_no_criar(void * dados) {
     return novo_no;
 }
 
+
+//apaga no fa fila de prioridade
 void pqueue_no_free(PQUEUE_NO **no, void (*dados_apagar) (void **)) {
     if (!no || !(*no)) return;
 
@@ -39,6 +42,7 @@ void pqueue_no_free(PQUEUE_NO **no, void (*dados_apagar) (void **)) {
     *no = NULL;
 }
 
+//cria tad fila de prioridade (priority queue)
 PQUEUE *pqueue_criar() {
     PQUEUE *pqueue = (PQUEUE *) malloc(sizeof(PQUEUE));
     if (!pqueue) return NULL;
@@ -62,6 +66,7 @@ void pqueue_set_dados_comparar(PQUEUE *pqueue, int (*dados_comparar) (void *, vo
     pqueue->dados_comparar = dados_comparar;
 }
 
+//liberando os nos da fila de prioridade (percorre a fila de prioridade usando a estrategia POS ORDEM)
 void pqueue_free_nos_pos_ordem(PQUEUE_NO **raiz, void (*dados_apagar) (void **)) {
     if (!raiz || !(*raiz)) return;
 
@@ -71,6 +76,7 @@ void pqueue_free_nos_pos_ordem(PQUEUE_NO **raiz, void (*dados_apagar) (void **))
 
 }
 
+//libera toda a fila de prioridade
 void pqueue_free(PQUEUE **pqueue) {
     if (!pqueue || !(*pqueue)) return;
 
@@ -84,6 +90,7 @@ void pqueue_free(PQUEUE **pqueue) {
     *pqueue = NULL;
 }
 
+//funcao auxilixar da pqueue_inserir
 PQUEUE_NO *pqueue_inserir_recursiva(PQUEUE_NO *no_pai, int no_objetivo, int comprimento, void *dados, int (*dados_comparar) (void *, void *)) {
     if (comprimento == 0)
         return pqueue_no_criar(dados);
@@ -151,6 +158,7 @@ PQUEUE_NO *pqueue_remover_recursiva(PQUEUE_NO *no_pai, int no_objetivo, int comp
     return no_pai;
 }
 
+//restaura a ordem da heap
 void pqueue_fix_down(PQUEUE_NO *no_pai, int (*dados_comparar) (void *, void *)) {
     PQUEUE_NO *troca = no_pai;
     PQUEUE_NO *esquerda = no_pai->esquerda;
@@ -169,7 +177,7 @@ void pqueue_fix_down(PQUEUE_NO *no_pai, int (*dados_comparar) (void *, void *)) 
     }
 }
 
-
+//remove o no (do topo) fila de prioridade
 void pqueue_remover(PQUEUE *pqueue) {
     if (!pqueue || pqueue->quantidade == 0 || !pqueue->dados_comparar) return;
 
@@ -183,6 +191,7 @@ void pqueue_remover(PQUEUE *pqueue) {
 
     if (pqueue->quantidade == 0) return;
     
+    //estaurando a ordem da heap (max heap)
     pqueue_fix_down(pqueue->raiz, pqueue->dados_comparar);
 
 }
@@ -192,7 +201,8 @@ void *pqueue_get_topo(PQUEUE *pqueue) {
     return pqueue->raiz->dados;
 }
 
+
 int pqueue_get_quantidade(PQUEUE *pqueue) {
     if (!pqueue) return -1;
-    return pqueue->quantidade;
+    return pqueue->quantidade; //retorna a quantidade de nos que possuem na pqueue
 }
