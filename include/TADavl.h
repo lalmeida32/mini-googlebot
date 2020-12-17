@@ -50,7 +50,7 @@
     void avl_print(AVL *arvore);
 
 
-    // setando o dado para ser apagado da memoria
+    // "setando" o dado para ser apagado da memoria
     // - Parâmetros
     //    -> arvore: AVL no qual deseja apagar o dado
     //    -> funcao que apaga os dados dentro de cada no da arvore
@@ -59,7 +59,7 @@
     void avl_set_dados_apagar(AVL *avl, void (*dados_apagar)(void **));
 
 
-    // setando os dados para serem comparados 
+    // "setando" os dados para serem comparados 
     // - Parâmetros
     //    -> arvore: AVL no qual deseja comaparar os dados
     //    -> funcao que compara os dados dos nos da arvore
@@ -68,7 +68,7 @@
     void avl_set_dados_comparar(AVL *avl, int (*dados_comparar)(void *, void *));
 
 
-    // setando os dados para serem impressos 
+    // "setando" os dados para serem impressos 
     // - Parâmetros
     //    -> arvore: AVL no qual deseja imprimir os dado
     //    -> funcao que imprimi os dados dentro de cada no da arvore
