@@ -122,6 +122,18 @@ char *site_get_palavra_chave(SITE *site, int index) {
     return site->palavras_chave[index];
 }
 
+char *site_get_link(SITE *site) {
+    if (!site) return NULL;
+
+    return site->link;
+}
+
+char *site_get_nome(SITE *site) {
+    if (!site) return NULL;
+
+    return site->nome;
+}
+
 
 // Ler e alterar nome de um determinado site
 void site_read_nome(SITE *site, FILE *input) {
@@ -168,3 +180,12 @@ int site_comparar_relevancia(void *dados1, void *dados2) {
 
     return site1->relevancia - site2->relevancia;
 }
+
+
+int site_comparar_link(void *dados1, void *dados2) {
+    SITE *site1 = (SITE *) dados1;
+    SITE *site2 = (SITE *) dados2;
+
+    return strcmp(site1->link, site2->link);
+}
+

@@ -53,6 +53,10 @@
 
     char *site_get_palavra_chave(SITE *site, int index);
 
+    char *site_get_link(SITE *site);
+
+    char *site_get_nome(SITE *site);
+
 
 
     // Altera a propriedade "nome" de uma estrutura SITE
@@ -139,5 +143,6 @@
 
     int site_comparar_relevancia(void *dados1, void *dados2);
 
+    int site_comparar_link(void *dados1, void *dados2);
 
 #endif

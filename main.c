@@ -27,8 +27,6 @@ int main(void) {
     recebe_dados(fp, num_sites, &lista_de_sites, &avl_de_palavras_chave);
     fclose(fp);
 
-    avl_print(avl_de_palavras_chave);
-
     // laço para as opções
     printf("Bem-vindo ao mini-googlebot!\n");
     do {
@@ -44,8 +42,6 @@ int main(void) {
         scanf("%d", &opcao);
         chamar_opcao(lista_de_sites, avl_de_palavras_chave, opcao);
     } while(opcao != 7);
-
-    avl_print(avl_de_palavras_chave);
 
     // nova lista de sites modificadas salva no arquivo de saída
     printf("Aguarde enquanto os dados estão sendo gravados no arquivo de saída\n");

@@ -187,28 +187,192 @@ void atualizar_relevancia(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
 
 }
 
+
+void buscar_por_palavra_chave(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
+    
+    flush(stdin);
+    printf("\nDigite a palavra-chave: ");
+    char *palavra_chave = ler_string(site_get_palavra_chave_max_length(), stdin);
+    PALAVRA_CHAVE_REF *pchave_ref = pchave_ref_busca_em_avl(avl_de_palavras_chave, palavra_chave);
+    free(palavra_chave);
+
+    if (!pchave_ref) {
+        printf("\nPalavra-chave não possui sites relacionados!\n\n");
+        return;
+    }
+
+    PQUEUE *sites_relacionados = pchave_get_sites_relacionados(pchave_ref);
+    if (!sites_relacionados) {
+        printf("\nOcorreu um erro: chave encontrada mas priority queue é inexistente!\n\n");
+        return;
+    }
+
+    if (pqueue_get_quantidade(sites_relacionados) == 0) {
+        printf("\nPalavra-chave não possui sites relacionados!\n\n");
+        return;
+    }
+
+    PQUEUE *sites_relacionados_auxiliar = pqueue_criar();
+    pqueue_set_dados_comparar(sites_relacionados_auxiliar, &site_comparar_relevancia);
+
+    int site_index = 1;
+
+    printf("\n");
+    while (pqueue_get_quantidade(sites_relacionados)) {
+
+        SITE *site = pqueue_get_topo(sites_relacionados);
+        printf("SITE %d\n", site_index);
+        printf("Nome: %s\n", site_get_nome(site));
+        printf("Link: %s\n", site_get_link(site));
+        printf("\n");
+        pqueue_inserir(sites_relacionados_auxiliar, site);
+        pqueue_remover(sites_relacionados);
+
+        site_index++;
+    }
+    
+    pchave_set_sites_relacionados(pchave_ref, sites_relacionados_auxiliar);
+    pqueue_free(&sites_relacionados);
+
+}
+
+void sugestao_de_sites(LISTA *lista_de_sites, AVL *avl_de_palavras_chave) {
+
+    // a) buscar a palavra fornecida entre as palavras-chave de cada site, selecionando aqueles que a contém
+    flush(stdin);
+    printf("\nDigite a palavra-chave: ");
+    char *palavra_chave = ler_string(site_get_palavra_chave_max_length(), stdin);
+    PALAVRA_CHAVE_REF *pchave_ref = pchave_ref_busca_em_avl(avl_de_palavras_chave, palavra_chave);
+    free(palavra_chave);
+
+    if (!pchave_ref) {
+        printf("\nPalavra-chave não possui sites relacionados!\n\n");
+        return;
+    }
+
+    PQUEUE *sites_relacionados = pchave_get_sites_relacionados(pchave_ref);
+    if (!sites_relacionados) {
+        printf("\nOcorreu um erro: chave encontrada mas priority queue é inexistente!\n\n");
+        return;
+    }
+
+    if (pqueue_get_quantidade(sites_relacionados) == 0) {
+        printf("\nPalavra-chave não possui sites relacionados!\n\n");
+        return;
+    }
+
+
+    // b) coletar todas as palavras-chave dos sites selecionados no passo “a”
+    
+    PQUEUE *pqueue_sites_sugestao = pqueue_criar(); // Resposta final
+    pqueue_set_dados_comparar(pqueue_sites_sugestao, &site_comparar_relevancia);
+
+    AVL *avl_sites_sugestao = avl_criar();
+    avl_set_dados_comparar(avl_sites_sugestao, &site_comparar_link);
+
+    PQUEUE *sites_relacionados_auxiliar = pqueue_criar();
+    pqueue_set_dados_comparar(sites_relacionados_auxiliar, &site_comparar_relevancia);
+    
+    PQUEUE *sites_relacionados_copy = pqueue_criar();
+    pqueue_set_dados_comparar(sites_relacionados_copy, &site_comparar_relevancia);
+
+    while (pqueue_get_quantidade(sites_relacionados)) {
+        SITE *site_atual = pqueue_get_topo(sites_relacionados);
+        pqueue_inserir(sites_relacionados_copy, site_atual);
+        pqueue_inserir(sites_relacionados_auxiliar, site_atual);
+        pqueue_remover(sites_relacionados);
+    }
+
+    pchave_set_sites_relacionados(pchave_ref, sites_relacionados_auxiliar);
+    pqueue_free(&sites_relacionados);
+
+    // c) buscar os sites que contêm alguma das palavras-chave identificadas no passo “b”
+    
+    // Para cada site nos sites relacionados
+    while (pqueue_get_quantidade(sites_relacionados_copy)) {
+        SITE *site_atual = pqueue_get_topo(sites_relacionados_copy);
+
+        // Para cada palavra chave nos sites
+        for (int i = 0; i < site_get_num_palavras_chave(site_atual); i++) {
+            
+            char *palavra_chave_atual = site_get_palavra_chave(site_atual, i);
+            PALAVRA_CHAVE_REF *pchave_ref_atual = pchave_ref_busca_em_avl(avl_de_palavras_chave, palavra_chave_atual);
+
+            PQUEUE *sites_relacionados_com_chave_atual = pchave_get_sites_relacionados(pchave_ref_atual);
+            PQUEUE *sites_relacionados_com_chave_atual_auxiliar = pqueue_criar();
+            pqueue_set_dados_comparar(sites_relacionados_com_chave_atual_auxiliar, &site_comparar_relevancia);
+
+            // Para cada site relacionado com a palavra chave atual
+            while (pqueue_get_quantidade(sites_relacionados_com_chave_atual)) {
+                SITE *site_relacionado_com_atual = pqueue_get_topo(sites_relacionados_com_chave_atual);
+                
+                if (!avl_busca(avl_sites_sugestao, site_relacionado_com_atual)) {
+                    avl_inserir(avl_sites_sugestao, site_relacionado_com_atual);
+                    pqueue_inserir(pqueue_sites_sugestao, site_relacionado_com_atual);    
+                }
+                
+                pqueue_inserir(sites_relacionados_com_chave_atual_auxiliar, site_relacionado_com_atual);
+                pqueue_remover(sites_relacionados_com_chave_atual);
+            }
+
+            pchave_set_sites_relacionados(pchave_ref_atual, sites_relacionados_com_chave_atual_auxiliar);
+            pqueue_free(&sites_relacionados_com_chave_atual);
+
+        }
+
+        pqueue_remover(sites_relacionados_copy);
+    }
+
+    avl_apagar(&avl_sites_sugestao);
+    pqueue_free(&sites_relacionados_copy);
+
+
+    // d) mostrar o nome e o link dos cinco (5) sites mais relevantes ordenados por relevância (decrescente)
+
+
+    for (int i = 1; i <= 5 && pqueue_get_quantidade(pqueue_sites_sugestao) > 0; i++) {
+        SITE *site_sugerido = pqueue_get_topo(pqueue_sites_sugestao);
+        printf("SITE %d\n", i);
+        printf("Nome: %s\n", site_get_nome(site_sugerido));
+        printf("Link: %s\n", site_get_link(site_sugerido));
+        printf("\n");
+        pqueue_remover(pqueue_sites_sugestao);
+    }
+
+    pqueue_free(&pqueue_sites_sugestao);
+
+}
+
 // Função que chama a função correta com base no parâmetro opção
 void chamar_opcao(LISTA *lista_de_sites, AVL *avl_de_palavras_chave, int opcao) {
+
+    void (*funcao_selecionada) (LISTA *, AVL *) = NULL;
+
     switch(opcao) {
         case 1:
-            inserir_site(lista_de_sites, avl_de_palavras_chave);
+            funcao_selecionada = &inserir_site;
             break;
         case 2:
-            remover_site(lista_de_sites, avl_de_palavras_chave);
+            funcao_selecionada = &remover_site;
             break;
         case 3:
-            inserir_palavra_chave(lista_de_sites, avl_de_palavras_chave);
+            funcao_selecionada = &inserir_palavra_chave;
             break;
         case 4:
-            atualizar_relevancia(lista_de_sites, avl_de_palavras_chave);
+            funcao_selecionada = &atualizar_relevancia;
             break;
         case 5:
+            funcao_selecionada = &buscar_por_palavra_chave;
             break;
         case 6:
+            funcao_selecionada = &sugestao_de_sites;
             break;
         case 7:
             break;
         default:
             printf("Opção inválida!\n");
     }
+
+    if (funcao_selecionada)
+        funcao_selecionada(lista_de_sites, avl_de_palavras_chave);
 }

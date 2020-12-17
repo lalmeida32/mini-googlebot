@@ -70,6 +70,7 @@ void avl_apagar_aux(AVL_NO **raiz, void (*dados_apagar)(void **)){
 //apaga toda a AVL
 void avl_apagar(AVL **arvore){
     avl_apagar_aux(&(*arvore)->raiz, (*arvore)->dados_apagar);
+
     free(*arvore);
     *arvore = NULL;
 } 
@@ -260,17 +261,17 @@ boolean avl_remover(AVL *arvore, void *chave){
 
 
 //percorre a avl em ordem para printar os seus nos
-void em_ordem(AVL_NO *raiz, void(*dados_imprimir)(void *)){
+void alv_imprimir_em_ordem(AVL_NO *raiz, void(*dados_imprimir)(void *)){
     if (raiz != NULL){
-        em_ordem(raiz->filho_esquerdo, dados_imprimir);
+        alv_imprimir_em_ordem(raiz->filho_esquerdo, dados_imprimir);
         dados_imprimir(raiz->dados);
-        em_ordem(raiz->filho_direito, dados_imprimir);
+        alv_imprimir_em_ordem(raiz->filho_direito, dados_imprimir);
     }
 }
 
 void avl_print(AVL *arvore){
     if (arvore != NULL && arvore->dados_imprimir != NULL){ 
-        em_ordem(arvore->raiz, arvore->dados_imprimir);
+        alv_imprimir_em_ordem(arvore->raiz, arvore->dados_imprimir);
     }
     return;
 }
