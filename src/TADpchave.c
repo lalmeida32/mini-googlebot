@@ -55,7 +55,7 @@ PQUEUE *pchave_get_sites_relacionados(PALAVRA_CHAVE_REF *pchave){
     return pchave->sites_relacionados;
 }
 
-void pchave_ref_imprimr(void *dados) {
+void pchave_ref_imprimir(void *dados) {
     PALAVRA_CHAVE_REF *pchave = (PALAVRA_CHAVE_REF *) dados;
 
     printf("%s\n", pchave->palavra_chave);

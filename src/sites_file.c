@@ -79,7 +79,7 @@ void recebe_dados(FILE *arquivo, int num_sites, LISTA **lista_de_sites, AVL **av
 
     avl_set_dados_comparar(avl, &pchave_ref_comparar);
     avl_set_dados_apagar(avl, &pchave_ref_apagar);
-    avl_set_dados_imprimir(avl, &pchave_ref_imprimr);
+    avl_set_dados_imprimir(avl, &pchave_ref_imprimir);
 
     //posicionando o cursor no inicio do arquivo
     fseek(arquivo, 0, SEEK_SET);
