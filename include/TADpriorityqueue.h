@@ -15,7 +15,7 @@
     PQUEUE *pqueue_criar();
 
 
-    // "setando" o dado para ser apagado da memoria
+    // "setando" a função que apaga dados da memória
     // - Parâmetros
     //    -> pqueue: fila de prioridade esoclhida
     //    -> funcao que apaga os dados dentro de cada no da arvore
@@ -24,7 +24,7 @@
     void pqueue_set_dados_apagar(PQUEUE *pqueue, void (*dados_apagar) (void **));
 
 
-    // "setando" os dados para serem comparados
+    // "setando" a função que compara os dados
     // - Parâmetros
     //    -> pqueue: fila de prioridade esoclhida
     //    -> funcao que compara os dados dentro de cada no da arvore
