@@ -74,7 +74,7 @@ Além disso, a fila de prioridade `sites_relacionados` de cada um dos registros 
 
 Segue um diagrama da estrutura:
 
-![alt text](https://github.com/lucasalmeida-pd/mini-googlebot/blob/Diagrama.png?raw=true)
+![alt text](https://github.com/lucasalmeida-pd/mini-googlebot/blob/main/Diagrama.png?raw=true)
 
 A estrutura em azul é a fila de prioridade, com a relevância de cada site, a estrutura em verde é o registro de cada nó da avl, e a estrutura em preto é a avl de palavras-chave.
 
